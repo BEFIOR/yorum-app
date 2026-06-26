@@ -7,6 +7,13 @@ const VALID_CATEGORIES: Category[] = ["otel", "otobus", "ucak", "restoran"];
 
 export async function POST(request: NextRequest) {
   try {
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: "AI analizi su an devre disi. OPENAI_API_KEY eklendikten sonra tekrar deneyin." },
+        { status: 503 }
+      );
+    }
+
     const { name, category } = await request.json();
 
     if (!name || name.trim().length < 2) {
@@ -59,6 +66,13 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Analysis error:", error);
+    if (error instanceof Error && error.message === "OPENAI_API_KEY_MISSING") {
+      return NextResponse.json(
+        { error: "AI analizi su an devre disi. OPENAI_API_KEY eksik." },
+        { status: 503 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Analiz sırasında bir hata oluştu. Lütfen tekrar deneyin." },
       { status: 500 }

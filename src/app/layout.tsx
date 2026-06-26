@@ -22,7 +22,10 @@ export const metadata: Metadata = {
   description:
     "Otel, restoran, ucak ve otobus yorumlarini yapay zeka ile analiz ederek daha dogru karar vermenizi saglayan yorum platformu.",
   applicationName: BRAND_NAME,
+  creator: BRAND_NAME,
+  publisher: BRAND_NAME,
   category: "Travel",
+  manifest: "/manifest.webmanifest",
   alternates: {
     canonical: "/",
   },

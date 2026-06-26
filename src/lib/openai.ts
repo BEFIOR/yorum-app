@@ -7,12 +7,19 @@ import {
   getPriceSearchQuery,
 } from "./prompts";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+function getOpenAIClient(): OpenAI {
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("OPENAI_API_KEY_MISSING");
+  }
+
+  return new OpenAI({ apiKey });
+}
 
 async function fetchPrices(category: Category, name: string): Promise<string> {
   try {
+    const openai = getOpenAIClient();
     const response = await openai.responses.create({
       model: "gpt-4o-mini",
       tools: [{ type: "web_search_preview" }],
@@ -34,6 +41,7 @@ async function fetchPrices(category: Category, name: string): Promise<string> {
 }
 
 export async function analyze(category: Category, name: string): Promise<string> {
+  const openai = getOpenAIClient();
   const priceInfo = await fetchPrices(category, name);
 
   const response = await openai.responses.create({
