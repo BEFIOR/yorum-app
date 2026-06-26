@@ -2,11 +2,11 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import SearchForm from "@/components/SearchForm";
 import AnalysisCard from "@/components/AnalysisCard";
 import RecentSearches from "@/components/RecentSearches";
-import { Component as AiLoader } from "@/components/ui/ai-loader";
-import { Component as BgGradient } from "@/components/ui/bg-gredient";
+import { ArrowLeft, Sparkles } from "lucide-react";
 import type { CategoryConfig } from "@/lib/prompts";
 
 interface AnalysisResult {
@@ -14,7 +14,15 @@ interface AnalysisResult {
   analysis: string;
 }
 
+const SAMPLE_QUERIES: Record<CategoryConfig["slug"], string[]> = {
+  otel: ["Rixos Sungate", "Swissotel The Bosphorus", "Hilton Bomonti"],
+  otobus: ["Kamil Koc", "Pamukkale Turizm", "Metro Turizm"],
+  ucak: ["Turkish Airlines", "Pegasus", "SunExpress"],
+  restoran: ["Nusr-Et", "Big Chefs", "Gunaydin"],
+};
+
 export default function CategoryPage({ config }: { config: CategoryConfig }) {
+  const prefersReducedMotion = useReducedMotion();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -58,76 +66,134 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
   );
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <BgGradient
-        gradientFrom={config.pageGradientFrom}
-        gradientTo={config.pageGradientTo}
-        gradientSize={config.pageGradientSize}
-        gradientPosition={config.pageGradientPosition}
-        gradientStop={config.pageGradientStop}
+    <main className="min-h-screen bg-slate-950 text-slate-100">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none fixed -left-24 top-32 h-64 w-64 rounded-full bg-fuchsia-500/15 blur-3xl"
+        animate={prefersReducedMotion ? undefined : { y: [0, -16, 0], x: [0, 10, 0] }}
+        transition={prefersReducedMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none fixed -right-24 top-56 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl"
+        animate={prefersReducedMotion ? undefined : { y: [0, 18, 0], x: [0, -12, 0] }}
+        transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative z-10">
-        {/* Back button */}
-        <div className="pt-6 px-4 max-w-4xl mx-auto">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Ana Sayfa
-          </Link>
-        </div>
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 md:px-6 md:pt-10">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="mb-6"
+        >
+          <motion.div whileHover={{ x: -4 }}>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Ana sayfaya dön
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        {/* Hero */}
-        <div className="pt-8 pb-8 px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className={`inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6 shadow-sm`}>
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-              {config.title} Yorum Analizi
-            </div>
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900 p-6 md:p-9"
+        >
+          <div className="absolute -right-10 top-4 h-40 w-40 rounded-full bg-sky-500/20 blur-3xl" />
+          <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-fuchsia-500/20 blur-3xl" />
 
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-              <span className={`bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
+          <div className="relative">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.45 }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200"
+            >
+              <Sparkles className="h-4 w-4 text-sky-300" />
+              {config.title} yorum analiz ekranı
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mt-4 text-balance text-3xl font-black tracking-tight text-white md:text-5xl"
+            >
+              <span className={`bg-linear-to-r ${config.gradient} bg-clip-text text-transparent`}>
                 {config.title}
-              </span>
-              <span className="text-gray-900"> Analizi</span>
-            </h1>
+              </span>{" "}
+              için son 1 yıl yorum özeti
+            </motion.h1>
 
-            <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
-              {config.subtitle}. Yapay zeka son 1 yılın yorumlarını analiz etsin.
-            </p>
-          </div>
-        </div>
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.28, duration: 0.5 }}
+              className="mt-3 max-w-3xl text-pretty text-base leading-relaxed text-slate-300 md:text-lg"
+            >
+              {config.subtitle}. Marka ya da işletme adını yaz, yapay zeka güçlü ve zayıf
+              yönleri net şekilde çıkarsın.
+            </motion.p>
 
-        {/* Search */}
-        <div className="px-4 pb-4">
-          <SearchForm
-            onSearch={handleSearch}
-            isLoading={isAnalyzing}
-            placeholder={config.placeholder}
-          />
-        </div>
-
-        {/* Analyzing */}
-        {isAnalyzing && <AiLoader text="Yukleniyor" />}
-
-        {/* Error */}
-        {error && (
-          <div className="max-w-2xl mx-auto px-4 mt-6">
-            <div className="bg-red-50 border border-red-200 text-red-700 px-5 py-4 rounded-xl text-sm flex items-start gap-3">
-              <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {error}
+            <div className="mt-4 grid gap-2 text-sm text-slate-300 md:grid-cols-3">
+              <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                1) Isletme adini yaz
+              </p>
+              <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                2) Analiz et butonuna bas
+              </p>
+              <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                3) Ozet sonucu karsilastir
+              </p>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.34, duration: 0.5 }}
+              className="mt-6"
+            >
+              <SearchForm
+                onSearch={handleSearch}
+                isLoading={isAnalyzing}
+                placeholder={config.placeholder}
+                sampleQueries={SAMPLE_QUERIES[config.slug]}
+              />
+            </motion.div>
+
+            {isAnalyzing && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-5 rounded-2xl border border-sky-300/20 bg-sky-400/10 px-4 py-3 text-sm text-sky-100"
+              >
+                {config.loadingText}
+              </motion.div>
+            )}
           </div>
+        </motion.section>
+
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 rounded-2xl border border-rose-300/30 bg-rose-400/10 px-5 py-4 text-sm text-rose-100"
+          >
+            {error}
+          </motion.div>
         )}
 
-        {/* Result */}
-        <div className="px-4 pb-16">
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.45 }}
+          className="mt-8"
+        >
           {analysisResult && (
             <AnalysisCard
               hotelName={analysisResult.name}
@@ -136,19 +202,17 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
             />
           )}
 
-          {!analysisResult && !isAnalyzing && (
+          {!analysisResult && (
             <RecentSearches
               onSelect={handleRecentSelect}
               refreshTrigger={refreshTrigger}
               category={config.slug}
             />
           )}
-        </div>
+        </motion.section>
 
-        <footer className="border-t border-gray-100 py-8 text-center">
-          <p className="text-sm text-gray-400">
-            Yorum Analiz &mdash; OpenAI ile desteklenmektedir
-          </p>
+        <footer className="mt-12 border-t border-white/10 py-8 text-center">
+          <p className="text-sm text-slate-400">YorumArat &mdash; OpenAI desteklidir</p>
         </footer>
       </div>
     </main>
