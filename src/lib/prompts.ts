@@ -73,7 +73,7 @@ export const CATEGORY_CONFIGS: Record<Category, CategoryConfig> = {
   restoran: {
     slug: "restoran",
     title: "Restoran",
-    subtitle: "Restoran yorumlarını analiz et, lezzetli ye",
+    subtitle: "Restoran yorumlarını analiz et, doğru mekânı seç",
     placeholder: "Restoran adını yazın... (ör: Nusr-Et, Big Chefs)",
     searchLabel: "Restoran adı",
     loadingText: "Restoran yorumları analiz ediliyor...",
@@ -95,7 +95,18 @@ const COMMON_RULES = `Kurallar:
 - Mümkün olduğunca gerçek yorumlardan kısa alıntılar kullan (tırnak içinde)
 - Yorumları objektif değerlendir, hem olumlu hem olumsuz dengeli sun
 - Kaç yorum incelediğini ve hangi kaynaklardan baktığını belirt
-- Bulamadıysan veya yeterli güncel yorum yoksa bunu açıkça belirt`;
+- Bulamadıysan veya yeterli güncel yorum yoksa bunu açıkça belirt
+
+PUANLAMA KURALLARI (ZORUNLU):
+- Google Maps puanını "Genel Değerlendirme" bölümünde şu formatta yaz: Google Maps puanı: X/5
+- Kendi genel puanını SADECE "Sonuç & Tavsiye" bölümünün EN SON satırında şu formatta yaz: YorumArat genel puanı: X/10
+- "10 üzerinden" ifadesini puan satırı dışında kullanma; puan satırı dışında /10 veya /5 yazma
+- YorumArat puanın metinle ve Google puanıyla tutarlı olmalı; asla çelişkili yüksek puan verme
+- Google 1-2/5 ise YorumArat puanı en fazla 3/10 olmalı
+- Google 3/5 ise YorumArat puanı genelde 4-6/10 arası olmalı
+- Google 4-5/5 ise YorumArat puanı 7-10/10 arası olabilir
+- Olumlu yorum bulamadıysan veya ağırlıklı olumsuzsa 4/10'un altında puan ver
+- Yeterli güncel yorum yoksa puan verme; bunun yerine "YorumArat genel puanı: veri yetersiz" yaz`;
 
 export const SYSTEM_PROMPTS: Record<Category, string> = {
   otel: `Sen bir otel yorum analiz uzmanısın. Kullanıcı sana bir otel adı ve fiyat bilgisi verecek. Sen bu otelin SON 1 YIL İÇİNDEKİ Google yorumlarını internetten araştıracak ve detaylı bir analiz yapacaksın.
@@ -107,7 +118,7 @@ Birden fazla web araması yaparak mümkün olduğunca çok güncel yorum bul.
 Analiz formatın şu şekilde olmalı:
 
 ## Genel Değerlendirme
-Otelin Google puanı, toplam yorum sayısı ve son 1 yıldaki genel eğilim.
+Google Maps puanı: X/5 formatında yaz. Toplam yorum sayısı ve son 1 yıldaki genel eğilim.
 
 ## En Çok Övgü Alan Konular
 Son 1 yılda misafirlerin en çok beğendiği özellikler. Gerçek yorumlardan alıntılar yap. (madde madde)
@@ -142,7 +153,7 @@ Sana verilen fiyat bilgilerini düzenli listele. Fiyat yoksa "Güncel fiyat bilg
 ## Sonuç & Tavsiye
 - Kime uygun / kime uygun değil
 - Gitmeden önce öneriler
-- Genel puan: 10 üzerinden
+- EN SON SATIR (zorunlu): YorumArat genel puanı: X/10
 
 ${COMMON_RULES}`,
 
@@ -155,7 +166,7 @@ Birden fazla web araması yaparak mümkün olduğunca çok güncel yorum bul. Ş
 Analiz formatın şu şekilde olmalı:
 
 ## Genel Değerlendirme
-Firmanın Google puanı, toplam yorum sayısı ve genel eğilim.
+Google Maps puanı: X/5 formatında yaz. Toplam yorum sayısı ve genel eğilim.
 
 ## En Çok Övgü Alan Konular
 Yolcuların en çok beğendiği özellikler. Gerçek yorumlardan alıntılar yap. (madde madde)
@@ -187,7 +198,7 @@ Sürüş güvenliği, kaza/olay raporları
 ## Sonuç & Tavsiye
 - Bu firma kime uygun / kime uygun değil
 - Bilet almadan önce öneriler
-- Genel puan: 10 üzerinden
+- EN SON SATIR (zorunlu): YorumArat genel puanı: X/10
 
 ${COMMON_RULES}`,
 
@@ -200,7 +211,7 @@ Birden fazla web araması yaparak mümkün olduğunca çok güncel yorum bul. Ş
 Analiz formatın şu şekilde olmalı:
 
 ## Genel Değerlendirme
-Havayolunun genel puanı, toplam yorum sayısı ve eğilim.
+Google Maps puanı: X/5 formatında yaz. Toplam yorum sayısı ve genel eğilim.
 
 ## En Çok Övgü Alan Konular
 Yolcuların en çok beğendiği özellikler. Gerçek yorumlardan alıntılar yap. (madde madde)
@@ -232,7 +243,7 @@ Uçuş güvenliği, türbülans yönetimi, pilot performansı
 ## Sonuç & Tavsiye
 - Bu havayolu kime uygun / kime uygun değil
 - Bilet almadan önce öneriler
-- Genel puan: 10 üzerinden
+- EN SON SATIR (zorunlu): YorumArat genel puanı: X/10
 
 ${COMMON_RULES}`,
 
@@ -245,7 +256,7 @@ Birden fazla web araması yaparak mümkün olduğunca çok güncel yorum bul.
 Analiz formatın şu şekilde olmalı:
 
 ## Genel Değerlendirme
-Restoranın Google puanı, toplam yorum sayısı ve genel eğilim.
+Google Maps puanı: X/5 formatında yaz. Toplam yorum sayısı ve genel eğilim.
 
 ## En Çok Övgü Alan Konular
 Müşterilerin en çok beğendiği özellikler. Gerçek yorumlardan alıntılar yap. (madde madde)
@@ -277,7 +288,7 @@ Ulaşım kolaylığı, park yeri, rezervasyon süreci, bekleme süresi
 ## Sonuç & Tavsiye
 - Bu restoran kime uygun / kime uygun değil
 - Gitmeden önce öneriler (rezervasyon, en iyi yemekler vb.)
-- Genel puan: 10 üzerinden
+- EN SON SATIR (zorunlu): YorumArat genel puanı: X/10
 
 ${COMMON_RULES}`,
 };
@@ -306,7 +317,9 @@ export function getInputPrompt(category: Category, name: string, priceInfo?: str
 
   return `Şu ${categoryLabels[category]} SON 1 YIL içindeki Google yorumlarını araştır ve analiz et: "${name}"
 
-Google Maps yorumları, TripAdvisor, Şikayetvar ve diğer kaynaklardan son 1 yıla ait (2025-2026) güncel yorumları bul. Hangi konulara övgü gelmiş, hangi konulara şikayet gelmiş detaylı analiz et. Mümkünse gerçek yorumlardan alıntılar yap.${priceSection}`;
+Google Maps yorumları, TripAdvisor, Şikayetvar ve diğer kaynaklardan son 1 yıla ait (2025-2026) güncel yorumları bul. Hangi konulara övgü gelmiş, hangi konulara şikayet gelmiş detaylı analiz et. Mümkünse gerçek yorumlardan alıntılar yap.
+
+Genel Değerlendirme bölümünde Google Maps puanını "Google Maps puanı: X/5" formatında yaz. Sonuç & Tavsiye bölümünün son satırında "YorumArat genel puanı: X/10" formatında puan ver; Google puanı düşükse YorumArat puanı da düşük olmalı.${priceSection}`;
 }
 
 export function getPriceSearchQuery(category: Category, name: string): string {

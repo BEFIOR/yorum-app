@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: `%s | ${BRAND_NAME}`,
   },
   description:
-    "Otel, restoran, ucak ve otobus yorumlarini yapay zeka ile analiz ederek daha dogru karar vermenizi saglayan yorum platformu.",
+    "Otel, restoran, uçak ve otobüs yorumlarını yapay zeka ile analiz ederek daha doğru karar vermenizi sağlayan yorum platformu.",
   applicationName: BRAND_NAME,
   creator: BRAND_NAME,
   publisher: BRAND_NAME,
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   keywords: [
-    "otel yorumlari",
-    "restoran yorumlari",
+    "otel yorumları",
+    "restoran yorumları",
     "otel yorumu analizi",
     "restoran yorumu analizi",
-    "ucak yorumlari",
-    "otobus yorumlari",
+    "uçak yorumları",
+    "otobüs yorumları",
   ],
   openGraph: {
     type: "website",
@@ -51,13 +51,13 @@ export const metadata: Metadata = {
     siteName: BRAND_NAME,
     title: `${BRAND_NAME} | Otel ve Restoran Yorum Analizi`,
     description:
-      "Son 1 yil otel, restoran, ucak ve otobus yorumlarini AI ile analiz edin.",
+      "Son 1 yıl otel, restoran, uçak ve otobüs yorumlarını AI ile analiz edin.",
   },
   twitter: {
     card: "summary_large_image",
     title: BRAND_NAME,
     description:
-      "Otel ve restoran yorumlarini analiz ederek daha hizli karar alin.",
+      "Otel ve restoran yorumlarını analiz ederek daha hızlı karar alın.",
   },
   robots: {
     index: true,

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   try {
     if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json(
-        { error: "AI analizi su an devre disi. OPENAI_API_KEY eklendikten sonra tekrar deneyin." },
+        { error: "AI analizi şu an devre dışı. OPENAI_API_KEY eklendikten sonra tekrar deneyin." },
         { status: 503 }
       );
     }
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
     console.error("Analysis error:", error);
     if (error instanceof Error && error.message === "OPENAI_API_KEY_MISSING") {
       return NextResponse.json(
-        { error: "AI analizi su an devre disi. OPENAI_API_KEY eksik." },
+        { error: "AI analizi şu an devre dışı. OPENAI_API_KEY eksik." },
         { status: 503 }
       );
     }
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "OpenAI kotasi dolu veya billing aktif degil. OpenAI projesinde billing/limit acip yeni key ile tekrar deneyin.",
+            "OpenAI kotası dolu veya billing aktif değil. OpenAI projesinde billing/limit açıp yeni key ile tekrar deneyin.",
         },
         { status: 429 }
       );

@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import SearchForm from "@/components/SearchForm";
 import AnalysisCard from "@/components/AnalysisCard";
 import RecentSearches from "@/components/RecentSearches";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 import type { CategoryConfig } from "@/lib/prompts";
 
 interface AnalysisResult {
@@ -16,9 +16,9 @@ interface AnalysisResult {
 
 const SAMPLE_QUERIES: Record<CategoryConfig["slug"], string[]> = {
   otel: ["Rixos Sungate", "Swissotel The Bosphorus", "Hilton Bomonti"],
-  otobus: ["Kamil Koc", "Pamukkale Turizm", "Metro Turizm"],
+  otobus: ["Kamil Koç", "Pamukkale Turizm", "Metro Turizm"],
   ucak: ["Turkish Airlines", "Pegasus", "SunExpress"],
-  restoran: ["Nusr-Et", "Big Chefs", "Gunaydin"],
+  restoran: ["Nusr-Et", "Big Chefs", "Günaydın"],
 };
 
 export default function CategoryPage({ config }: { config: CategoryConfig }) {
@@ -27,6 +27,21 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!analysisResult) return;
+
+    const timer = window.setTimeout(() => {
+      resultsRef.current?.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      resultsRef.current?.focus({ preventScroll: true });
+    }, 150);
+
+    return () => window.clearTimeout(timer);
+  }, [analysisResult, prefersReducedMotion]);
 
   const handleSearch = useCallback(
     async (name: string) => {
@@ -80,7 +95,9 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
         transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <section className="relative z-10 w-full overflow-hidden md:h-screen">
+      <section
+        className={`relative z-10 w-full overflow-hidden ${analysisResult ? "pb-8" : "md:h-screen"}`}
+      >
         <div className="absolute -right-10 top-4 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl" />
         <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-cyan-300/18 blur-3xl" />
 
@@ -116,19 +133,21 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
             </div>
 
             <div className="relative mt-4">
-              <div className="grid gap-2 text-sm text-slate-100 md:grid-cols-3">
-                <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
-                  1) Isletme adini yaz
-                </p>
-                <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
-                  2) Analiz et butonuna bas
-                </p>
-                <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
-                  3) Ozet sonucu karsilastir
-                </p>
-              </div>
+              {!analysisResult && (
+                <div className="grid gap-2 text-sm text-slate-100 md:grid-cols-3">
+                  <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
+                    1) İşletme adını yaz
+                  </p>
+                  <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
+                    2) Analiz et butonuna bas
+                  </p>
+                  <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
+                    3) Özet sonucu karşılaştır
+                  </p>
+                </div>
+              )}
 
-              <div className="mt-6">
+              <div className={analysisResult ? "mt-0" : "mt-6"}>
                 <SearchForm
                   onSearch={handleSearch}
                   isLoading={isAnalyzing}
@@ -138,8 +157,19 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
               </div>
 
               {isAnalyzing && (
-                <div className="mt-5 rounded-2xl border border-cyan-300/30 bg-slate-900/50 px-4 py-3 text-sm text-cyan-100 backdrop-blur-sm">
-                  {config.loadingText}
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="mt-5 flex items-center gap-3 rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-4 backdrop-blur-sm"
+                >
+                  <span className="relative flex h-3 w-3 shrink-0">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-cyan-300" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-cyan-50">{config.loadingText}</p>
+                    <p className="mt-0.5 text-xs text-cyan-200/80">Bu işlem birkaç saniye sürebilir...</p>
+                  </div>
                 </div>
               )}
 
@@ -151,6 +181,36 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
                   {error}
                 </div>
               )}
+
+              {analysisResult && !isAnalyzing && (
+                <div
+                  ref={resultsRef}
+                  id="analysis-results"
+                  tabIndex={-1}
+                  className="mt-6 scroll-mt-28 outline-none"
+                >
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    className="mb-5 flex items-start gap-3 rounded-2xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-4 backdrop-blur-sm"
+                  >
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" />
+                    <div>
+                      <p className="text-sm font-bold text-emerald-100">Analiz tamamlandı!</p>
+                      <p className="mt-1 text-sm text-emerald-200/90">
+                        <span className="font-semibold">{analysisResult.name}</span> için yorum özeti
+                        hazır. Aşağıda detaylı raporu inceleyebilirsin.
+                      </p>
+                    </div>
+                  </div>
+
+                  <AnalysisCard
+                    hotelName={analysisResult.name}
+                    analysis={analysisResult.analysis}
+                    onClose={() => setAnalysisResult(null)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -158,14 +218,6 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-2 md:px-6 md:pt-12">
         <section className="mt-2 md:mt-8">
-          {analysisResult && (
-            <AnalysisCard
-              hotelName={analysisResult.name}
-              analysis={analysisResult.analysis}
-              onClose={() => setAnalysisResult(null)}
-            />
-          )}
-
           {!analysisResult && (
             <RecentSearches
               onSelect={handleRecentSelect}

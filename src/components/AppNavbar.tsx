@@ -15,12 +15,12 @@ const navItems = [
   },
   {
     href: "/otobus",
-    label: "Otobus Yorumu",
+    label: "Otobüs Yorumu",
     icon: Bus,
   },
   {
     href: "/ucak",
-    label: "Ucak Yorumu",
+    label: "Uçak Yorumu",
     icon: Plane,
   },
   {
@@ -95,7 +95,7 @@ export default function AppNavbar() {
                 type="button"
                 aria-expanded={menuOpen}
                 aria-controls="mobile-nav-menu"
-                aria-label={menuOpen ? "Menuyu kapat" : "Menuyu ac"}
+                aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
                 onClick={() => setMenuOpen((open) => !open)}
                 className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-200/40 bg-slate-800/80 text-cyan-50 transition hover:bg-slate-800"
               >

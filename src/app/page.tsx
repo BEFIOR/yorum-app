@@ -4,28 +4,28 @@ import HeroVideoBackground from "@/components/HeroVideoBackground";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: `Otel Yorumlari ve Restoran Yorumlari Analizi | ${BRAND_NAME}`,
+  title: `Otel Yorumları ve Restoran Yorumları Analizi | ${BRAND_NAME}`,
   description:
-    "Otel yorumu, restoran yorumu, ucak ve otobus yorumlarini AI ile analiz edin. Son 1 yil yorumlarini tarayip en iyi secimi daha hizli yapin.",
+    "Otel yorumu, restoran yorumu, uçak ve otobüs yorumlarını AI ile analiz edin. Son 1 yıl yorumlarını tarayıp en iyi seçimi daha hızlı yapın.",
   alternates: {
     canonical: "/",
   },
   keywords: [
-    "otel yorumlari",
+    "otel yorumları",
     "otel yorumu",
-    "restoran yorumlari",
+    "restoran yorumları",
     "restoran yorumu",
-    "ucak yorumlari",
-    "otobus yorumlari",
+    "uçak yorumları",
+    "otobüs yorumları",
     "otel tavsiye",
     "restoran tavsiye",
   ],
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: `Otel Yorumlari ve Restoran Yorumlari Analizi | ${BRAND_NAME}`,
+    title: `Otel Yorumları ve Restoran Yorumları Analizi | ${BRAND_NAME}`,
     description:
-      "Son 1 yil otel, restoran, ucak ve otobus yorumlarini AI ile analiz eden karar platformu.",
+      "Son 1 yıl otel, restoran, uçak ve otobüs yorumlarını AI ile analiz eden karar platformu.",
     siteName: BRAND_NAME,
     locale: "tr_TR",
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: BRAND_NAME,
     description:
-      "Otel yorumu ve restoran yorumu aramalarinda hizli karar almaniza yardimci AI analiz platformu.",
+      "Otel yorumu ve restoran yorumu aramalarında hızlı karar almanıza yardımcı AI analiz platformu.",
   },
 };
 
@@ -65,18 +65,18 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "Otel yorumu ararken hangi kriterlere bakilmali?",
+      name: "Otel yorumu ararken hangi kriterlere bakılmalı?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Son 1 yil yorumlari, temizlik, konum, personel ve fiyat/performans basliklarini birlikte degerlendirmek gerekir.",
+        text: "Son 1 yıl yorumları, temizlik, konum, personel ve fiyat/performans başlıklarını birlikte değerlendirmek gerekir.",
       },
     },
     {
       "@type": "Question",
-      name: "Restoran yorumu seciminde en onemli noktalar nelerdir?",
+      name: "Restoran yorumu seçiminde en önemli noktalar nelerdir?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yemek kalitesi, hijyen, servis hizi ve gercek kullanici yorum dagilimi en kritik sinyallerdir.",
+        text: "Yemek kalitesi, hijyen, servis hızı ve gerçek kullanıcı yorum dağılımı en kritik sinyallerdir.",
       },
     },
   ],

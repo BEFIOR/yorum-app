@@ -79,7 +79,7 @@ export default function SearchForm({
       </div>
 
       <div className="mt-2 flex items-center justify-between gap-3 px-1 text-xs">
-        <p className="text-slate-400">Ipucu: Enter tusu ile hizli arama yapabilirsin.</p>
+        <p className="text-slate-400">İpucu: Enter tuşu ile hızlı arama yapabilirsin.</p>
         {showValidation && (
           <p className="text-rose-300">En az 2 karakter girmen gerekiyor.</p>
         )}

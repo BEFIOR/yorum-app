@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${BRAND_NAME} - Otel ve Restoran Yorum Analizi`,
     short_name: BRAND_NAME,
     description:
-      "Otel, restoran, ucak ve otobus yorumlarini AI ile analiz ederek daha hizli karar verin.",
+      "Otel, restoran, uçak ve otobüs yorumlarını AI ile analiz ederek daha hızlı karar verin.",
     start_url: "/",
     scope: "/",
     display: "standalone",

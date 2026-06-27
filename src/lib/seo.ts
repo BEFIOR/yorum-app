@@ -16,11 +16,11 @@ type CategorySeoConfig = {
 const CATEGORY_SEO: Record<SeoCategory, CategorySeoConfig> = {
   otel: {
     path: "/otel",
-    title: "Otel Yorumlari Analizi",
+    title: "Otel Yorumları Analizi",
     description:
-      "Otel yorumlarini son 1 yila odaklanarak AI ile analiz edin. Temizlik, konum, personel ve fiyat/performans basliklarini tek ekranda gorun.",
+      "Otel yorumlarını son 1 yıla odaklanarak AI ile analiz edin. Temizlik, konum, personel ve fiyat/performans başlıklarını tek ekranda görün.",
     keywords: [
-      "otel yorumlari",
+      "otel yorumları",
       "otel yorumu",
       "otel tavsiye",
       "otel analizi",
@@ -28,24 +28,24 @@ const CATEGORY_SEO: Record<SeoCategory, CategorySeoConfig> = {
     ],
     faq: [
       {
-        question: "Otel yorumlarinda en onemli kriterler nelerdir?",
+        question: "Otel yorumlarında en önemli kriterler nelerdir?",
         answer:
-          "Temizlik, konum, personel kalitesi ve fiyat/performans kriterleri birlikte degerlendirilmelidir.",
+          "Temizlik, konum, personel kalitesi ve fiyat/performans kriterleri birlikte değerlendirilmelidir.",
       },
       {
-        question: "Sadece son 1 yil yorumlarina bakmak neden onemli?",
+        question: "Sadece son 1 yıl yorumlarına bakmak neden önemli?",
         answer:
-          "Guncel yorumlar, hizmet kalitesindeki degisimleri daha dogru yansitir ve karar hatasini azaltir.",
+          "Güncel yorumlar, hizmet kalitesindeki değişimleri daha doğru yansıtır ve karar hatasını azaltır.",
       },
     ],
   },
   restoran: {
     path: "/restoran",
-    title: "Restoran Yorumlari Analizi",
+    title: "Restoran Yorumları Analizi",
     description:
-      "Restoran yorumlarini son 1 yil verileriyle AI destekli analiz edin. Yemek kalitesi, hijyen ve servis hizi gibi basliklari net gorun.",
+      "Restoran yorumlarını son 1 yıl verileriyle AI destekli analiz edin. Yemek kalitesi, hijyen ve servis hızı gibi başlıkları net görün.",
     keywords: [
-      "restoran yorumlari",
+      "restoran yorumları",
       "restoran yorumu",
       "yemek yeri tavsiye",
       "restoran analizi",
@@ -53,62 +53,62 @@ const CATEGORY_SEO: Record<SeoCategory, CategorySeoConfig> = {
     ],
     faq: [
       {
-        question: "Restoran secerken yorumlarda nelere dikkat edilmeli?",
+        question: "Restoran seçerken yorumlarda nelere dikkat edilmeli?",
         answer:
-          "Yemek kalitesi, hijyen, servis hizi ve gercek kullanici deneyimlerinin tutarliligina dikkat edilmelidir.",
+          "Yemek kalitesi, hijyen, servis hızı ve gerçek kullanıcı deneyimlerinin tutarlılığına dikkat edilmelidir.",
       },
       {
-        question: "Restoran puani tek basina yeterli mi?",
+        question: "Restoran puanı tek başına yeterli mi?",
         answer:
-          "Hayir. Puanin yaninda yorum icerigi, tarih dagilimi ve sikayet basliklari da birlikte okunmalidir.",
+          "Hayır. Puanın yanında yorum içeriği, tarih dağılımı ve şikayet başlıkları da birlikte okunmalıdır.",
       },
     ],
   },
   otobus: {
     path: "/otobus",
-    title: "Otobus Yorumlari Analizi",
+    title: "Otobüs Yorumları Analizi",
     description:
-      "Otobus firmasi yorumlarini AI ile analiz edin. Konfor, zamaninda kalkis, hizmet kalitesi ve fiyat degerlendirmesini tek ekranda inceleyin.",
+      "Otobüs firması yorumlarını AI ile analiz edin. Konfor, zamanında kalkış, hizmet kalitesi ve fiyat değerlendirmesini tek ekranda inceleyin.",
     keywords: [
-      "otobus yorumlari",
-      "otobus firmasi yorum",
-      "otobus yolculuk tavsiye",
-      "otobus analizi",
+      "otobüs yorumları",
+      "otobüs firması yorum",
+      "otobüs yolculuk tavsiye",
+      "otobüs analizi",
     ],
     faq: [
       {
-        question: "Otobus firmasi secerken hangi yorumlar onemlidir?",
+        question: "Otobüs firması seçerken hangi yorumlar önemlidir?",
         answer:
-          "Zamaninda kalkis, koltuk konforu, personel davranisi ve mola kalitesi hakkindaki yorumlar kritik onemdedir.",
+          "Zamanında kalkış, koltuk konforu, personel davranışı ve mola kalitesi hakkındaki yorumlar kritik öneme sahiptir.",
       },
       {
-        question: "Otobus yorumlari nasil karsilastirilir?",
+        question: "Otobüs yorumları nasıl karşılaştırılır?",
         answer:
-          "Ayni rota ve benzer tarihli yorumlar birlikte degerlendirilerek daha dogru bir karsilastirma yapilir.",
+          "Aynı rota ve benzer tarihli yorumlar birlikte değerlendirilerek daha doğru bir karşılaştırma yapılır.",
       },
     ],
   },
   ucak: {
     path: "/ucak",
-    title: "Ucak Yorumlari Analizi",
+    title: "Uçak Yorumları Analizi",
     description:
-      "Havayolu yorumlarini son 1 yil verisiyle analiz edin. Rotar, bagaj, kabin hizmeti ve fiyat/performans kriterlerini karsilastirin.",
+      "Havayolu yorumlarını son 1 yıl verisiyle analiz edin. Rötar, bagaj, kabin hizmeti ve fiyat/performans kriterlerini karşılaştırın.",
     keywords: [
-      "ucak yorumlari",
-      "havayolu yorumlari",
-      "ucak bileti tavsiye",
+      "uçak yorumları",
+      "havayolu yorumları",
+      "uçak bileti tavsiye",
       "havayolu analizi",
     ],
     faq: [
       {
-        question: "Havayolu secerken hangi yorumlara bakilmali?",
+        question: "Havayolu seçerken hangi yorumlara bakılmalı?",
         answer:
-          "Rotar sikligi, bagaj sureci, kabin hizmeti ve check-in deneyimi hakkindaki yorumlar birlikte okunmalidir.",
+          "Rötar sıklığı, bagaj süreci, kabin hizmeti ve check-in deneyimi hakkındaki yorumlar birlikte okunmalıdır.",
       },
       {
-        question: "Ucak yorumlarinda fiyat/performans nasil degerlendirilir?",
+        question: "Uçak yorumlarında fiyat/performans nasıl değerlendirilir?",
         answer:
-          "Bilet fiyatinin yaninda sunulan hizmetler, zamaninda kalkis orani ve musteri memnuniyeti birlikte incelenmelidir.",
+          "Bilet fiyatının yanında sunulan hizmetler, zamanında kalkış oranı ve müşteri memnuniyeti birlikte incelenmelidir.",
       },
     ],
   },
