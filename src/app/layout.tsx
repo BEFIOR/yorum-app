@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo";
 import AppNavbar from "@/components/AppNavbar";
+import VideoWarmup from "@/components/VideoWarmup";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -84,6 +85,8 @@ export default function RootLayout({
       style={{ backgroundColor: "#0f2f3d" }}
     >
       <body className="min-h-full flex flex-col bg-background font-sans">
+        <link rel="preload" href="/posters/homepageyorum.jpg" as="image" />
+        <VideoWarmup />
         <AppNavbar />
         {children}
       </body>

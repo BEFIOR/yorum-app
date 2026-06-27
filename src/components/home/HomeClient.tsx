@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { prefetchHeroMedia } from "@/lib/videos";
 import {
   ArrowRight,
   Bus,
@@ -108,8 +109,8 @@ export default function HomeClient() {
         transition={prefersReducedMotion ? undefined : { duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <section className="relative z-10 h-screen w-full overflow-hidden">
-          <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col items-start px-4 pt-40 md:px-6 md:pt-44">
+      <section className="relative z-10 w-full overflow-hidden md:h-screen">
+          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start px-4 pt-28 pb-6 md:h-full md:px-6 md:pt-44 md:pb-0">
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-50">
               <Sparkles className="h-4 w-4 text-cyan-200" />
               <span className="leading-tight">
@@ -131,7 +132,7 @@ export default function HomeClient() {
               </p>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3 md:mt-10">
               <Link
                 href="/otel"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-sky-300 via-cyan-200 to-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:brightness-105"
@@ -150,8 +151,8 @@ export default function HomeClient() {
           </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6">
-        <section id="kategoriler" className="mt-12">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-2 md:px-6 md:pt-12">
+        <section id="kategoriler" className="mt-2 md:mt-12">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-2xl font-bold md:text-3xl">Kategori sec ve devam et</h2>
           </div>
@@ -168,6 +169,8 @@ export default function HomeClient() {
               >
                 <Link
                   href={cat.href}
+                  onMouseEnter={() => prefetchHeroMedia(cat.href)}
+                  onFocus={() => prefetchHeroMedia(cat.href)}
                   className="group block rounded-2xl border border-cyan-200/30 bg-cyan-100/8 p-5 backdrop-blur-xl transition hover:border-cyan-300/50"
                 >
                   <div className="mb-3 flex items-center justify-between">

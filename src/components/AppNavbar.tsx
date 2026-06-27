@@ -2,56 +2,189 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Bus, Hotel, Plane, UtensilsCrossed } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Bus, ChevronRight, Hotel, Menu, Plane, UtensilsCrossed, X } from "lucide-react";
+import { prefetchHeroMedia } from "@/lib/videos";
 
 const navItems = [
-  { href: "/otel", label: "Otel Yorumu", icon: <Hotel className="h-4 w-4" /> },
-  { href: "/otobus", label: "Otobus Yorumu", icon: <Bus className="h-4 w-4" /> },
-  { href: "/ucak", label: "Ucak Yorumu", icon: <Plane className="h-4 w-4" /> },
-  { href: "/restoran", label: "Restoran Yorumu", icon: <UtensilsCrossed className="h-4 w-4" /> },
-];
+  {
+    href: "/otel",
+    label: "Otel Yorumu",
+    icon: Hotel,
+  },
+  {
+    href: "/otobus",
+    label: "Otobus Yorumu",
+    icon: Bus,
+  },
+  {
+    href: "/ucak",
+    label: "Ucak Yorumu",
+    icon: Plane,
+  },
+  {
+    href: "/restoran",
+    label: "Restoran Yorumu",
+    icon: UtensilsCrossed,
+  },
+] as const;
 
 export default function AppNavbar() {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto max-w-6xl px-4 pt-4 md:px-6 md:pt-6">
-        <div className="relative overflow-hidden rounded-2xl border border-cyan-200/35 bg-slate-900/75 backdrop-blur-md">
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(14, 116, 144, 0.35) 0%, rgba(21, 94, 117, 0.28) 50%, rgba(15, 47, 61, 0.4) 100%)",
-            }}
-          />
-          <div className="relative flex flex-col gap-2 p-2 md:flex-row md:items-center md:justify-between">
-            <Link
-              href="/"
-              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-100/12 px-4 text-sm font-semibold text-slate-50 transition hover:bg-cyan-100/22"
+    <>
+      <div
+        aria-hidden={!menuOpen}
+        className={`fixed inset-0 z-30 bg-slate-950/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setMenuOpen(false)}
+      />
+
+      <header className="fixed inset-x-0 top-0 z-40">
+        <div className="mx-auto max-w-6xl px-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:px-6 md:pt-6">
+          <div className="relative overflow-hidden rounded-2xl border border-cyan-200/35 bg-slate-900/75 backdrop-blur-md">
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(14, 116, 144, 0.35) 0%, rgba(21, 94, 117, 0.28) 50%, rgba(15, 47, 61, 0.4) 100%)",
+              }}
+            />
+
+            {/* Mobil: logo + menu butonu */}
+            <div className="relative flex items-center justify-between gap-2 p-2 md:hidden">
+              <Link
+                href="/"
+                onFocus={() => prefetchHeroMedia("/")}
+                className="inline-flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-100/12 px-3 text-sm font-semibold text-slate-50 transition hover:bg-cyan-100/22"
+              >
+                <Image
+                  src="/yorumarat.png"
+                  alt="YorumArat Logo"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 shrink-0 rounded-lg object-cover"
+                />
+                <span className="truncate">YorumArat</span>
+              </Link>
+              <button
+                type="button"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-nav-menu"
+                aria-label={menuOpen ? "Menuyu kapat" : "Menuyu ac"}
+                onClick={() => setMenuOpen((open) => !open)}
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-200/40 bg-cyan-100/12 text-slate-100 transition hover:bg-cyan-100/22"
+              >
+                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
+
+            {/* Mobil: acilir-kapanir menu */}
+            <div
+              className={`grid transition-[grid-template-rows] duration-300 ease-in-out md:hidden ${
+                menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              }`}
             >
-              <Image
-                src="/yorumarat.png"
-                alt="YorumArat Logo"
-                width={28}
-                height={28}
-                className="h-7 w-7 rounded-lg object-cover"
-              />
-              YorumArat
-            </Link>
-            <nav className="flex items-center gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-visible">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl border border-cyan-200/35 bg-cyan-100/12 px-4 text-sm font-semibold text-slate-100 transition-colors duration-200 hover:border-sky-100/80 hover:bg-linear-to-r hover:from-sky-200/24 hover:via-cyan-200/20 hover:to-white/22 hover:text-white"
-                >
-                  <span className="text-cyan-200">{item.icon}</span>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+              <nav
+                id="mobile-nav-menu"
+                aria-hidden={!menuOpen}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-col gap-1.5 border-t border-cyan-200/20 p-2">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    const active = pathname === item.href;
+
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        tabIndex={menuOpen ? 0 : -1}
+                        onFocus={() => prefetchHeroMedia(item.href)}
+                        className={`inline-flex min-h-11 items-center gap-3 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors ${
+                          active
+                            ? "border-sky-200/60 bg-sky-400/15 text-white"
+                            : "border-cyan-200/35 bg-cyan-100/10 text-slate-100 hover:bg-cyan-100/18"
+                        }`}
+                      >
+                        <Icon className={`h-5 w-5 shrink-0 ${active ? "text-sky-200" : "text-cyan-200"}`} />
+                        <span className="flex-1">{item.label}</span>
+                        <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </nav>
+            </div>
+
+            {/* Masaustu */}
+            <div className="relative hidden items-center justify-between gap-2 p-2 md:flex">
+              <Link
+                href="/"
+                onMouseEnter={() => prefetchHeroMedia("/")}
+                onFocus={() => prefetchHeroMedia("/")}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-100/12 px-4 text-sm font-semibold text-slate-50 transition hover:bg-cyan-100/22"
+              >
+                <Image
+                  src="/yorumarat.png"
+                  alt="YorumArat Logo"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 rounded-lg object-cover"
+                />
+                YorumArat
+              </Link>
+              <nav className="flex items-center gap-2">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  const active = pathname === item.href;
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onMouseEnter={() => prefetchHeroMedia(item.href)}
+                      onFocus={() => prefetchHeroMedia(item.href)}
+                      className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-colors duration-200 ${
+                        active
+                          ? "border-sky-200/60 bg-sky-400/15 text-white"
+                          : "border-cyan-200/35 bg-cyan-100/12 text-slate-100 hover:border-sky-100/80 hover:bg-cyan-100/18 hover:text-white"
+                      }`}
+                    >
+                      <Icon className={`h-4 w-4 ${active ? "text-sky-200" : "text-cyan-200"}`} />
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }
