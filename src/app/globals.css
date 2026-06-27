@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f2f3d;
+  --foreground: #ecfeff;
 }
 
 @theme inline {
@@ -17,6 +18,15 @@ body {
   color: var(--foreground);
 }
 
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Apple-like soft dark baseline palette. */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -47,17 +57,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: #64748b;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: #94a3b8;
 }
 
 ::selection {
-  background: #bfdbfe;
-  color: #1e3a5f;
+  background: #7dd3fc;
+  color: #0f172a;
 }
 
 @keyframes loaderCircle {

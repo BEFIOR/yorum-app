@@ -31,7 +31,7 @@ export default function SearchForm({
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-full max-w-3xl">
-      <div className="flex flex-col gap-3 rounded-2xl border border-white/15 bg-white/5 p-3 backdrop-blur-sm sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 rounded-2xl border border-white/20 bg-white/10 p-3 backdrop-blur-xl sm:flex-row sm:items-center">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -43,7 +43,7 @@ export default function SearchForm({
               }
             }}
             placeholder={placeholder}
-            className="h-12 w-full rounded-xl border border-white/15 bg-slate-900/70 pl-10 pr-4 text-sm text-slate-100 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20"
+            className="h-12 w-full rounded-xl border border-white/20 bg-white/10 pl-10 pr-4 text-sm text-slate-100 outline-none transition placeholder:text-slate-300 focus:border-sky-300 focus:ring-2 focus:ring-sky-400/30"
             disabled={isLoading}
             aria-label="Arama sorgusu"
           />
@@ -65,7 +65,7 @@ export default function SearchForm({
         <button
           type="submit"
           disabled={isLoading || query.trim().length < 2}
-          className="inline-flex h-12 min-w-36 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-slate-900 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+          className="inline-flex h-12 min-w-36 items-center justify-center gap-2 rounded-xl bg-sky-400 px-5 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
         >
           {isLoading ? (
             <>
@@ -96,7 +96,7 @@ export default function SearchForm({
                 setShowValidation(false);
                 onSearch(sample);
               }}
-              className="inline-flex min-h-10 items-center rounded-lg border border-white/15 bg-white/5 px-3 text-sm text-slate-200 transition hover:border-sky-300/40 hover:bg-sky-500/10"
+              className="inline-flex min-h-10 items-center rounded-lg border border-white/20 bg-white/10 px-3 text-sm text-slate-100 transition hover:border-sky-300/40 hover:bg-sky-500/15"
             >
               {sample}
             </button>

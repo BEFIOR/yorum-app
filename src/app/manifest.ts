@@ -15,9 +15,9 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "tr",
     icons: [
       {
-        src: "/favicon.ico",
-        sizes: "any",
-        type: "image/x-icon",
+        src: "/yorumarat.png?v=2",
+        sizes: "512x512",
+        type: "image/png",
       },
     ],
     categories: ["travel", "productivity", "utilities"],

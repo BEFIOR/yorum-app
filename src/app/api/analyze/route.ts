@@ -73,6 +73,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const errorObj = error as {
+      status?: number;
+      code?: string;
+      type?: string;
+      error?: { code?: string; type?: string; message?: string };
+      message?: string;
+    };
+    const isQuotaError =
+      errorObj?.status === 429 ||
+      errorObj?.code === "insufficient_quota" ||
+      errorObj?.type === "insufficient_quota" ||
+      errorObj?.error?.code === "insufficient_quota" ||
+      errorObj?.error?.type === "insufficient_quota";
+
+    if (isQuotaError) {
+      return NextResponse.json(
+        {
+          error:
+            "OpenAI kotasi dolu veya billing aktif degil. OpenAI projesinde billing/limit acip yeni key ile tekrar deneyin.",
+        },
+        { status: 429 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Analiz sırasında bir hata oluştu. Lütfen tekrar deneyin." },
       { status: 500 }

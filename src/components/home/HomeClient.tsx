@@ -5,12 +5,13 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "fr
 import {
   ArrowRight,
   Bus,
-  CheckCircle2,
-  Clock3,
+  CirclePlay,
   Compass,
+  MessageSquareText,
+  ShieldCheck,
   Hotel,
   Plane,
-  ShieldCheck,
+  Sparkles,
   UtensilsCrossed,
 } from "lucide-react";
 
@@ -63,36 +64,24 @@ const categories = [
 
 const featureCards = [
   {
-    title: "Canli Kaynak Tarama",
-    description: "Google, TripAdvisor ve ilgili platformlardan guncel sinyalleri yakalar.",
+    title: "Guncel Yorum Havuzu",
+    description: "Son 12 aydaki geri bildirimleri kaynak bazli toplar.",
     icon: <Compass className="h-5 w-5" />,
   },
   {
-    title: "Hizli Karar Ozeti",
-    description: "Yuzlerce yorumu tek ekranda arti-eksi odakli sade bir sonuca cevirir.",
-    icon: <Clock3 className="h-5 w-5" />,
+    title: "Net Arti-Eksi Ozeti",
+    description: "Uzun yorumlari okunur ve karsilastirilabilir hale getirir.",
+    icon: <MessageSquareText className="h-5 w-5" />,
   },
   {
-    title: "Guven Katmani",
-    description: "Yalnizca son 1 yil verisine odaklanarak eski ve yaniltici yorumlari azaltir.",
+    title: "Guven Skoru",
+    description: "Eski veya tutarsiz yorum etkisini azaltan karar katmani sunar.",
     icon: <ShieldCheck className="h-5 w-5" />,
   },
 ];
 
-const seoContent = [
-  {
-    title: "Otel yorumu ararken nelere bakilmali?",
-    text: "Otel yorum analizi yaparken son 1 yildaki yorumlara odaklanmak, temizlik, konum, personel ve fiyat/performans basliklarini birlikte degerlendirmek gerekir.",
-  },
-  {
-    title: "Restoran yorumu nasil dogru okunur?",
-    text: "Restoran seciminde tek bir puana degil; yemek kalitesi, hizmet hizi, hijyen ve gercek musteri yorumu dagilimina bakmak daha dogru sonuc verir.",
-  },
-  {
-    title: "Otobus ve ucak yorumu karsilastirmasi",
-    text: "Ulasim kategorilerinde rotar oranlari, koltuk konforu, bagaj ve musteri hizmetleri hakkindaki yorumlar karar surecinde kritik rol oynar.",
-  },
-];
+const TRANSPARENT_POSTER =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 export default function HomeClient() {
   const prefersReducedMotion = useReducedMotion();
@@ -106,239 +95,192 @@ export default function HomeClient() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.45], [1, prefersReducedMotion ? 1 : 0.75]);
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-linear-to-b from-cyan-950/85 via-sky-950/75 to-slate-900 text-slate-100">
       <motion.div
         style={{ scaleX: progressWidth }}
-        className="fixed inset-x-0 top-0 z-50 h-1 origin-left bg-linear-to-r from-fuchsia-500 via-sky-400 to-emerald-400"
+        className="fixed inset-x-0 top-0 z-50 h-1 origin-left bg-linear-to-r from-sky-300 via-cyan-200 to-white"
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed -left-20 top-16 h-64 w-64 rounded-full bg-fuchsia-500/25 blur-3xl"
+        className="pointer-events-none fixed -left-20 top-16 h-64 w-64 rounded-full bg-cyan-400/22 blur-3xl"
         animate={prefersReducedMotion ? undefined : { y: [0, -18, 0], x: [0, 14, 0] }}
         transition={prefersReducedMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed -right-20 top-48 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl"
+        className="pointer-events-none fixed -right-20 top-48 h-72 w-72 rounded-full bg-cyan-400/25 blur-3xl"
         animate={prefersReducedMotion ? undefined : { y: [0, 20, 0], x: [0, -12, 0] }}
         transition={prefersReducedMotion ? undefined : { duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 md:px-6 md:pt-12">
-        <motion.section
-          style={{ y: heroY, opacity: heroOpacity }}
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/80 p-7 shadow-[0_28px_90px_-40px_rgba(15,23,42,0.9)] backdrop-blur-sm md:p-12"
-        >
-          <div className="absolute -left-10 -top-16 h-56 w-56 rounded-full bg-fuchsia-500/20 blur-3xl" />
-          <div className="absolute -right-10 top-8 h-56 w-56 rounded-full bg-sky-500/20 blur-3xl" />
+      <motion.section
+        style={{ y: heroY, opacity: heroOpacity }}
+        initial={{ opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="relative z-10 h-screen w-full overflow-hidden"
+      >
+          <div className="pointer-events-none fixed inset-0 z-0">
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={TRANSPARENT_POSTER}
+            >
+              <source src="/homepageyorum.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-linear-to-b from-cyan-900/28 via-sky-900/18 to-slate-900/45" />
+          </div>
 
-          <div className="relative">
+          <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col items-start px-4 pt-40 md:px-6 md:pt-44">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200"
+              transition={{ delay: 0.08, duration: 0.45 }}
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-50"
             >
-              <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-              Yapay zeka destekli karar asistani
+              <Sparkles className="h-4 w-4 text-cyan-200" />
+              <span className="leading-tight">
+                <span className="block">Gercek yorumlarla</span>
+                <span className="block">hizli karar</span>
+              </span>
             </motion.div>
 
-            <div className="mt-6 grid gap-9 lg:grid-cols-[1.1fr_0.9fr]">
-              <div>
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.6 }}
-                  className="text-balance text-4xl font-black tracking-tight text-white md:text-6xl"
-                >
-                  Yorumlari topla,
-                  <span className="block bg-linear-to-r from-fuchsia-400 via-sky-300 to-emerald-300 bg-clip-text text-transparent">
-                    en iyi secimi dakikalar icinde yap.
-                  </span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 22 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.22, duration: 0.6 }}
-                  className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-slate-300 md:text-lg"
-                >
-                  Otel, ucus, otobus ya da restoran fark etmeden son 12 ay yorumlarini
-                  tarar; guclu ve zayif taraflari net sekilde sunar.
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.55 }}
-                  className="mt-8 flex flex-wrap gap-3"
-                >
-                  <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
-                    <Link
-                      href="/otel"
-                      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition duration-300 hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                    >
-                      Analizi baslat
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </motion.div>
-                  <motion.a
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    href="#kategoriler"
-                    className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 transition duration-300 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                  >
-                    Kategorileri kesfet
-                  </motion.a>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                  className="mt-8 grid grid-cols-2 gap-3 text-sm"
-                >
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                  >
-                    <p className="text-xl font-bold text-white">45K+</p>
-                    <p className="text-slate-300">Analiz edilen yorum</p>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                  >
-                    <p className="text-xl font-bold text-white">4 kategori</p>
-                    <p className="text-slate-300">Sektore ozel akis</p>
-                  </motion.div>
-                </motion.div>
-              </div>
-              <div className="grid gap-3">
-                {featureCards.map((item, index) => (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.18 + index * 0.12, duration: 0.45 }}
-                    whileHover={{ scale: 1.02, y: -4 }}
-                    className="rounded-2xl border border-white/10 bg-white/5 p-4"
-                  >
-                    <div className="mb-3 inline-flex rounded-lg border border-white/15 bg-white/10 p-2 text-sky-300">
-                      {item.icon}
-                    </div>
-                    <h2 className="font-semibold text-white">{item.title}</h2>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-300">
-                      {item.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="mt-5 max-w-3xl">
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.16, duration: 0.55 }}
+                className="text-balance text-4xl font-black tracking-tight text-white md:text-6xl"
+              >
+                Yorum kalabalığını ayıkla,
+                <span className="block bg-linear-to-r from-sky-200 via-cyan-100 to-white bg-clip-text text-transparent">
+                  doğru seçimi netleştir.
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.24, duration: 0.55 }}
+                className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg"
+              >
+                Otel, restoran, ucak ve otobus yorumlarini tek ekranda anlayip dakikalar
+                icinde karar ver. Sade, hizli ve gercek kullanici odakli.
+              </motion.p>
             </div>
-          </div>
-        </motion.section>
 
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.34, duration: 0.5 }}
+              className="mt-10 flex flex-wrap items-center gap-3"
+            >
+              <Link
+                href="/otel"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-sky-300 via-cyan-200 to-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:brightness-105"
+              >
+                Analizi baslat
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="#kategoriler"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/15"
+              >
+                <CirclePlay className="h-4 w-4" />
+                Kategorileri gor
+              </a>
+            </motion.div>
+          </div>
+      </motion.section>
+
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6">
         <section id="kategoriler" className="mt-12">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-white md:text-3xl">
-              Kategoriye gore yorum analizi
-            </h2>
-            <span className="hidden rounded-full border border-white/20 bg-white/5 px-3 py-1 text-sm text-slate-200 md:inline-flex">
-              Tek tikla gecis
-            </span>
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-2xl font-bold md:text-3xl">Kategori sec ve devam et</h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {categories.map((cat, index) => (
               <motion.div
                 key={cat.slug}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                whileHover={prefersReducedMotion ? undefined : { y: -4 }}
               >
-                <motion.div whileHover={{ y: -6 }} className="h-full">
-                  <Link
-                    href={cat.href}
-                    className="group relative block h-full overflow-hidden rounded-3xl border border-white/10 bg-slate-900 p-6 transition duration-300 hover:border-white/25 hover:shadow-[0_24px_40px_-30px_rgba(148,163,184,0.8)]"
-                  >
-                    <div
-                      className={`pointer-events-none absolute inset-0 bg-linear-to-br ${cat.gradient} opacity-0 transition duration-300 group-hover:opacity-100`}
-                    />
-                    <div className="relative">
-                      <div className="mb-4 flex items-start justify-between gap-3">
-                        <motion.div
-                          whileHover={{ scale: 1.12, rotate: -4 }}
-                          className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/5 transition duration-300"
-                        >
-                          <div className={cat.iconClass}>{cat.icon}</div>
-                        </motion.div>
-                        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-200">
-                          {cat.metric}
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl font-bold text-white">{cat.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                        {cat.description}
-                      </p>
-                      <p className="mt-4 text-xs text-slate-400">{cat.examples}</p>
-
-                      <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white transition duration-300 group-hover:text-sky-300">
-                        Analize git
-                        <ArrowRight className="h-4 w-4" />
-                      </div>
+                <Link
+                  href={cat.href}
+                  className="group block rounded-2xl border border-cyan-200/30 bg-cyan-100/8 p-5 backdrop-blur-xl transition hover:border-cyan-300/50"
+                >
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/25 bg-white/10">
+                      <span className={cat.iconClass}>{cat.icon}</span>
                     </div>
-                  </Link>
-                </motion.div>
+                    <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-slate-100">
+                      {cat.metric}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">{cat.title}</h3>
+                  <p className="mt-1 text-sm text-slate-300">{cat.description}</p>
+                  <p className="mt-3 text-xs text-slate-400">{cat.examples}</p>
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200">
+                    Incele
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
         </section>
 
-        <section className="mt-12 rounded-3xl border border-white/10 bg-slate-900 p-7 md:p-10">
-          <h2 className="text-2xl font-bold text-white md:text-3xl">Kullanimi cok kolay</h2>
-          <p className="mt-2 text-slate-300">
-            Kategori sec, firma/marka yaz ve tek tikla analiz al. Son aramalarla hizli tekrar arama yap.
-          </p>
-          <div className="mt-5 grid gap-3 text-sm md:grid-cols-3">
-            <div className="rounded-xl border border-white/10 bg-white/5 p-3">1) Kategori sec</div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-3">2) Isim yaz veya ornek sec</div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-3">3) Ozet sonuca gore karar ver</div>
+        <section className="mt-12 rounded-3xl border border-white/20 bg-white/6 p-6 backdrop-blur-xl md:p-8">
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="rounded-xl border border-white/20 bg-white/10 p-4">
+              <p className="text-xs uppercase tracking-wide text-slate-400">Adim 1</p>
+              <p className="mt-1 font-semibold text-white">Kategori sec</p>
+              <p className="mt-1 text-sm text-slate-300">Otel, restoran, ucak veya otobus.</p>
+            </div>
+            <div className="rounded-xl border border-white/20 bg-white/10 p-4">
+              <p className="text-xs uppercase tracking-wide text-slate-400">Adim 2</p>
+              <p className="mt-1 font-semibold text-white">Isletme adini yaz</p>
+              <p className="mt-1 text-sm text-slate-300">Ornek sorgularla tek tikta dene.</p>
+            </div>
+            <div className="rounded-xl border border-white/20 bg-white/10 p-4">
+              <p className="text-xs uppercase tracking-wide text-slate-400">Adim 3</p>
+              <p className="mt-1 font-semibold text-white">Ozeti karsilastir</p>
+              <p className="mt-1 text-sm text-slate-300">Arti-eksi tablosu ile hizli karar ver.</p>
+            </div>
           </div>
         </section>
 
-        <section className="mt-8 rounded-3xl border border-white/10 bg-slate-900 p-7 md:p-10">
-          <h2 className="text-2xl font-bold text-white md:text-3xl">
-            Otel yorumu ve restoran yorumu aramalarinda one cikmak icin rehber
-          </h2>
-          <p className="mt-3 max-w-4xl text-slate-300">
-            Bu bolum, otel yorumu, restoran yorumu, ucak yorumu ve otobus yorumu
-            aramalarinda kullanicilarin ihtiyac duydugu bilgileri acik, dogru ve yapisal
-            sekilde sunmak icin hazirlanmistir.
-          </p>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {seoContent.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-2xl border border-white/10 bg-white/5 p-4"
-              >
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.text}</p>
-              </article>
-            ))}
-          </div>
+        <section className="mt-8 grid gap-3 md:grid-cols-3">
+          {featureCards.map((item, index) => (
+            <motion.article
+              key={item.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: 0.08 + index * 0.08, duration: 0.4 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+              className="rounded-2xl border border-white/20 bg-white/6 p-4 backdrop-blur-xl"
+            >
+              <div className="mb-3 inline-flex rounded-lg border border-cyan-200/30 bg-cyan-100/12 p-2 text-cyan-200">
+                {item.icon}
+              </div>
+              <h2 className="font-semibold text-white">{item.title}</h2>
+              <p className="mt-1 text-sm leading-relaxed text-slate-300">{item.description}</p>
+            </motion.article>
+          ))}
         </section>
-
-        <section className="mt-12 rounded-3xl border border-white/10 bg-slate-900 p-7 md:p-10">
+        <section className="mt-10 rounded-3xl border border-white/20 bg-white/6 p-7 backdrop-blur-xl md:p-10">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-slate-300">YorumArat - AI destekli yeni arayuz</p>
             <Link
               href="/otel"
-              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition duration-300 hover:bg-slate-200"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-linear-to-r from-sky-300 via-cyan-200 to-white px-4 py-2 text-sm font-semibold text-slate-950 transition duration-300 hover:brightness-105"
             >
               Ilk analizi baslat
             </Link>

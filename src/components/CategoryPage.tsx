@@ -14,6 +14,9 @@ interface AnalysisResult {
   analysis: string;
 }
 
+const TRANSPARENT_POSTER =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
 const SAMPLE_QUERIES: Record<CategoryConfig["slug"], string[]> = {
   otel: ["Rixos Sungate", "Swissotel The Bosphorus", "Hilton Bomonti"],
   otobus: ["Kamil Koc", "Pamukkale Turizm", "Metro Turizm"],
@@ -22,6 +25,17 @@ const SAMPLE_QUERIES: Record<CategoryConfig["slug"], string[]> = {
 };
 
 export default function CategoryPage({ config }: { config: CategoryConfig }) {
+  const isHotelCategory = config.slug === "otel";
+  const isFlightCategory = config.slug === "ucak";
+  const backgroundVideo = isHotelCategory
+    ? "/otelyorum.mp4"
+    : isFlightCategory
+      ? "/ucakyorum.mp4"
+      : config.slug === "restoran"
+        ? "/restoranyorum.mp4"
+        : config.slug === "otobus"
+          ? "/otobusyorum.mp4"
+      : null;
   const prefersReducedMotion = useReducedMotion();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
@@ -66,118 +80,137 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
   );
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-linear-to-b from-cyan-950/85 via-sky-950/75 to-slate-900 text-slate-100">
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed -left-24 top-32 h-64 w-64 rounded-full bg-fuchsia-500/15 blur-3xl"
+        className="pointer-events-none fixed -left-24 top-32 h-64 w-64 rounded-full bg-cyan-400/18 blur-3xl"
         animate={prefersReducedMotion ? undefined : { y: [0, -16, 0], x: [0, 10, 0] }}
         transition={prefersReducedMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed -right-24 top-56 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl"
+        className="pointer-events-none fixed -right-24 top-56 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl"
         animate={prefersReducedMotion ? undefined : { y: [0, 18, 0], x: [0, -12, 0] }}
         transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 md:px-6 md:pt-10">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="mb-6"
-        >
-          <motion.div whileHover={{ x: -4 }}>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10"
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 h-screen w-full overflow-hidden"
+      >
+        {backgroundVideo && (
+          <div className="pointer-events-none fixed inset-0 z-0">
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={TRANSPARENT_POSTER}
             >
-              <ArrowLeft className="h-4 w-4" />
-              Ana sayfaya dön
-            </Link>
-          </motion.div>
-        </motion.div>
+              <source src={backgroundVideo} type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-linear-to-b from-cyan-900/28 via-sky-900/18 to-slate-900/50" />
+          </div>
+        )}
+        <div className="absolute -right-10 top-4 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-cyan-300/18 blur-3xl" />
 
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900 p-6 md:p-9"
-        >
-          <div className="absolute -right-10 top-4 h-40 w-40 rounded-full bg-sky-500/20 blur-3xl" />
-          <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-fuchsia-500/20 blur-3xl" />
-
-          <div className="relative">
+        <div className="relative mx-auto flex h-full w-full max-w-6xl items-start px-4 pt-32 md:px-6 md:pt-36">
+          <div className="w-full">
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.45 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200"
+              transition={{ duration: 0.45 }}
+              className="mb-6"
             >
-              <Sparkles className="h-4 w-4 text-sky-300" />
-              {config.title} yorum analiz ekranı
+              <motion.div whileHover={{ x: -4 }}>
+                <Link
+                  href="/"
+                  className="inline-flex items-center gap-2 rounded-xl border border-cyan-200/30 bg-cyan-100/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-cyan-100/18"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Ana sayfaya dön
+                </Link>
+              </motion.div>
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mt-4 text-balance text-3xl font-black tracking-tight text-white md:text-5xl"
-            >
-              <span className={`bg-linear-to-r ${config.gradient} bg-clip-text text-transparent`}>
-                {config.title}
-              </span>{" "}
-              için son 1 yıl yorum özeti
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28, duration: 0.5 }}
-              className="mt-3 max-w-3xl text-pretty text-base leading-relaxed text-slate-300 md:text-lg"
-            >
-              {config.subtitle}. Marka ya da işletme adını yaz, yapay zeka güçlü ve zayıf
-              yönleri net şekilde çıkarsın.
-            </motion.p>
-
-            <div className="mt-4 grid gap-2 text-sm text-slate-300 md:grid-cols-3">
-              <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                1) Isletme adini yaz
-              </p>
-              <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                2) Analiz et butonuna bas
-              </p>
-              <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                3) Ozet sonucu karsilastir
-              </p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.34, duration: 0.5 }}
-              className="mt-6"
-            >
-              <SearchForm
-                onSearch={handleSearch}
-                isLoading={isAnalyzing}
-                placeholder={config.placeholder}
-                sampleQueries={SAMPLE_QUERIES[config.slug]}
-              />
-            </motion.div>
-
-            {isAnalyzing && (
+            <div className="relative">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-5 rounded-2xl border border-sky-300/20 bg-sky-400/10 px-4 py-3 text-sm text-sky-100"
+                transition={{ delay: 0.15, duration: 0.45 }}
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-100"
               >
-                {config.loadingText}
+                <Sparkles className="h-4 w-4 text-cyan-200" />
+                {config.title} yorum analiz ekranı
               </motion.div>
-            )}
-          </div>
-        </motion.section>
 
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="mt-4 text-balance text-3xl font-black tracking-tight text-white md:text-5xl"
+              >
+                <span className={`bg-linear-to-r ${config.gradient} bg-clip-text text-transparent`}>
+                  {config.title}
+                </span>{" "}
+                için son 1 yıl yorum özeti
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28, duration: 0.5 }}
+                className="mt-3 max-w-3xl text-pretty text-base leading-relaxed text-slate-200 md:text-lg"
+              >
+                {config.subtitle}. Marka ya da işletme adını yaz, yapay zeka güçlü ve zayıf
+                yönleri net şekilde çıkarsın.
+              </motion.p>
+
+              <div className="mt-4 grid gap-2 text-sm text-slate-200 md:grid-cols-3">
+                <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+                  1) Isletme adini yaz
+                </p>
+                <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+                  2) Analiz et butonuna bas
+                </p>
+                <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+                  3) Ozet sonucu karsilastir
+                </p>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.34, duration: 0.5 }}
+                className="mt-6"
+              >
+                <SearchForm
+                  onSearch={handleSearch}
+                  isLoading={isAnalyzing}
+                  placeholder={config.placeholder}
+                  sampleQueries={SAMPLE_QUERIES[config.slug]}
+                />
+              </motion.div>
+
+              {isAnalyzing && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-5 rounded-2xl border border-cyan-200/30 bg-cyan-300/12 px-4 py-3 text-sm text-cyan-100"
+                >
+                  {config.loadingText}
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6">
         {error && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}

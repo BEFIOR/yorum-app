@@ -54,7 +54,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: BRAND_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/icon.png`,
+  logo: `${SITE_URL}/yorumarat.png`,
   sameAs: [],
 };
 

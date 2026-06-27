@@ -187,7 +187,7 @@ function ScoreExtractor({ content }: { content: string[] }) {
   }
 
   return (
-    <div className="mb-4 flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
+    <div className="mb-4 flex items-center gap-4 rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl">
       <div className={`text-4xl font-black ${textColor}`}>
         {score.toFixed(1)}
       </div>
@@ -215,13 +215,13 @@ export default function AnalysisCard({ hotelName, analysis, onClose }: AnalysisC
 
   return (
     <div className="mx-auto mt-8 w-full max-w-5xl animate-fadeIn">
-      <div className="relative mb-8 overflow-hidden rounded-3xl border border-white/10 bg-slate-900 p-6 md:p-8">
+      <div className="relative mb-8 overflow-hidden rounded-3xl border border-white/20 bg-white/6 p-6 backdrop-blur-xl md:p-8">
         <div className="absolute -right-6 top-2 h-28 w-28 rounded-full bg-sky-400/20 blur-2xl" />
         <div className="absolute -left-6 bottom-2 h-28 w-28 rounded-full bg-fuchsia-400/20 blur-2xl" />
 
         <div className="relative flex items-start justify-between gap-3">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-slate-100">
               <Sparkles className="h-4 w-4 text-sky-300" />
               AI Yorum Sonucu
             </div>
@@ -232,7 +232,7 @@ export default function AnalysisCard({ hotelName, analysis, onClose }: AnalysisC
           </div>
           <button
             onClick={onClose}
-            className="rounded-xl border border-white/15 bg-white/5 p-2 text-slate-200 transition hover:bg-white/10"
+            className="rounded-xl border border-white/20 bg-white/10 p-2 text-slate-100 transition hover:bg-white/15"
             aria-label="Sonucu kapat"
           >
             <CircleX className="h-5 w-5" />
@@ -244,7 +244,7 @@ export default function AnalysisCard({ hotelName, analysis, onClose }: AnalysisC
             <a
               key={i}
               href={`#section-${i}`}
-              className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-200 transition hover:bg-white/10"
+              className="inline-flex items-center gap-1 rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-slate-100 transition hover:bg-white/15"
             >
               <ArrowUpRight className="h-3.5 w-3.5" />
               {section.title}
@@ -258,7 +258,7 @@ export default function AnalysisCard({ hotelName, analysis, onClose }: AnalysisC
           <div
             key={i}
             id={`section-${i}`}
-            className={`overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 transition duration-300 hover:border-white/20 border-l-4 ${section.borderColor}`}
+            className={`overflow-hidden rounded-2xl border border-white/20 bg-white/6 backdrop-blur-xl transition duration-300 hover:border-white/30 border-l-4 ${section.borderColor}`}
             style={{ animationDelay: `${i * 80}ms` }}
           >
             <div className="px-6 pb-3 pt-5">
@@ -281,7 +281,7 @@ export default function AnalysisCard({ hotelName, analysis, onClose }: AnalysisC
       <div className="mb-4 mt-8 text-center">
         <button
           onClick={onClose}
-          className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3 font-medium text-slate-100 transition hover:bg-white/10"
+          className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3 font-medium text-slate-100 transition hover:bg-white/15"
         >
           Yeni arama yap
         </button>

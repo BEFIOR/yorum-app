@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo";
+import AppNavbar from "@/components/AppNavbar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,6 +27,11 @@ export const metadata: Metadata = {
   publisher: BRAND_NAME,
   category: "Travel",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [{ url: "/yorumarat.png?v=2", type: "image/png" }],
+    shortcut: ["/yorumarat.png?v=2"],
+    apple: ["/yorumarat.png?v=2"],
+  },
   alternates: {
     canonical: "/",
   },
@@ -73,9 +79,13 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <AppNavbar />
+        {children}
+      </body>
     </html>
   );
 }
