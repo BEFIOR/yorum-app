@@ -3,6 +3,8 @@ import { analyze } from "@/lib/openai";
 import { supabase } from "@/lib/supabase";
 import type { Category } from "@/lib/prompts";
 
+export const maxDuration = 60;
+
 const VALID_CATEGORIES: Category[] = ["otel", "otobus", "ucak", "restoran"];
 
 export async function POST(request: NextRequest) {
@@ -32,32 +34,36 @@ export async function POST(request: NextRequest) {
 
     const analysis = await analyze(category, name.trim());
 
-    const { data: searchData, error: searchError } = await supabase
-      .from("searches")
-      .insert({
-        hotel_name: name.trim(),
-        hotel_place_id: name.trim().toLowerCase().replace(/\s+/g, "-"),
-        hotel_address: "",
-        hotel_rating: null,
-        category,
-      })
-      .select("id")
-      .single();
+    try {
+      const { data: searchData, error: searchError } = await supabase
+        .from("searches")
+        .insert({
+          hotel_name: name.trim(),
+          hotel_place_id: name.trim().toLowerCase().replace(/\s+/g, "-"),
+          hotel_address: "",
+          hotel_rating: null,
+          category,
+        })
+        .select("id")
+        .single();
 
-    if (searchError) {
-      console.error("Supabase search insert error:", searchError);
-    }
-
-    if (searchData) {
-      const { error: analysisError } = await supabase.from("analyses").insert({
-        search_id: searchData.id,
-        analysis_text: analysis,
-        raw_reviews: [],
-      });
-
-      if (analysisError) {
-        console.error("Supabase analysis insert error:", analysisError);
+      if (searchError) {
+        console.error("Supabase search insert error:", searchError);
       }
+
+      if (searchData) {
+        const { error: analysisError } = await supabase.from("analyses").insert({
+          search_id: searchData.id,
+          analysis_text: analysis,
+          raw_reviews: [],
+        });
+
+        if (analysisError) {
+          console.error("Supabase analysis insert error:", analysisError);
+        }
+      }
+    } catch (dbError) {
+      console.error("Supabase connection error:", dbError);
     }
 
     return NextResponse.json({

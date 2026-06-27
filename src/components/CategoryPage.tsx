@@ -14,9 +14,6 @@ interface AnalysisResult {
   analysis: string;
 }
 
-const TRANSPARENT_POSTER =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-
 const SAMPLE_QUERIES: Record<CategoryConfig["slug"], string[]> = {
   otel: ["Rixos Sungate", "Swissotel The Bosphorus", "Hilton Bomonti"],
   otobus: ["Kamil Koc", "Pamukkale Turizm", "Metro Turizm"],
@@ -94,21 +91,16 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
         transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative z-10 h-screen w-full overflow-hidden"
-      >
+      <section className="relative z-10 h-screen w-full overflow-hidden">
         {backgroundVideo && (
-          <div className="pointer-events-none fixed inset-0 z-0">
+          <div className="pointer-events-none fixed inset-0 z-0 bg-slate-900">
             <video
               className="h-full w-full object-cover"
               autoPlay
               muted
               loop
               playsInline
-              poster={TRANSPARENT_POSTER}
+              preload="auto"
             >
               <source src={backgroundVideo} type="video/mp4" />
             </video>
@@ -120,12 +112,7 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
 
         <div className="relative mx-auto flex h-full w-full max-w-6xl items-start px-4 pt-32 md:px-6 md:pt-36">
           <div className="w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-              className="mb-6"
-            >
+            <div className="mb-6">
               <motion.div whileHover={{ x: -4 }}>
                 <Link
                   href="/"
@@ -135,40 +122,25 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
                   Ana sayfaya dön
                 </Link>
               </motion.div>
-            </motion.div>
+            </div>
 
             <div className="relative">
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.45 }}
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-100"
-              >
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-100">
                 <Sparkles className="h-4 w-4 text-cyan-200" />
                 {config.title} yorum analiz ekranı
-              </motion.div>
+              </div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="mt-4 text-balance text-3xl font-black tracking-tight text-white md:text-5xl"
-              >
+              <h1 className="mt-4 text-balance text-3xl font-black tracking-tight text-white md:text-5xl">
                 <span className={`bg-linear-to-r ${config.gradient} bg-clip-text text-transparent`}>
                   {config.title}
                 </span>{" "}
                 için son 1 yıl yorum özeti
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.28, duration: 0.5 }}
-                className="mt-3 max-w-3xl text-pretty text-base leading-relaxed text-slate-200 md:text-lg"
-              >
+              <p className="mt-3 max-w-3xl text-pretty text-base leading-relaxed text-slate-200 md:text-lg">
                 {config.subtitle}. Marka ya da işletme adını yaz, yapay zeka güçlü ve zayıf
                 yönleri net şekilde çıkarsın.
-              </motion.p>
+              </p>
 
               <div className="mt-4 grid gap-2 text-sm text-slate-200 md:grid-cols-3">
                 <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
@@ -182,51 +154,36 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
                 </p>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.34, duration: 0.5 }}
-                className="mt-6"
-              >
+              <div className="mt-6">
                 <SearchForm
                   onSearch={handleSearch}
                   isLoading={isAnalyzing}
                   placeholder={config.placeholder}
                   sampleQueries={SAMPLE_QUERIES[config.slug]}
                 />
-              </motion.div>
+              </div>
 
               {isAnalyzing && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-5 rounded-2xl border border-cyan-200/30 bg-cyan-300/12 px-4 py-3 text-sm text-cyan-100"
-                >
+                <div className="mt-5 rounded-2xl border border-cyan-200/30 bg-cyan-300/12 px-4 py-3 text-sm text-cyan-100">
                   {config.loadingText}
-                </motion.div>
+                </div>
+              )}
+
+              {error && !isAnalyzing && (
+                <div
+                  role="alert"
+                  className="mt-5 rounded-2xl border border-rose-300/40 bg-rose-500/15 px-4 py-3 text-sm text-rose-100"
+                >
+                  {error}
+                </div>
               )}
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6">
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-6 rounded-2xl border border-rose-300/30 bg-rose-400/10 px-5 py-4 text-sm text-rose-100"
-          >
-            {error}
-          </motion.div>
-        )}
-
-        <motion.section
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.45 }}
-          className="mt-8"
-        >
+        <section className="mt-8">
           {analysisResult && (
             <AnalysisCard
               hotelName={analysisResult.name}
@@ -242,7 +199,7 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
               category={config.slug}
             />
           )}
-        </motion.section>
+        </section>
 
         <footer className="mt-12 border-t border-white/10 py-8 text-center">
           <p className="text-sm text-slate-400">YorumArat &mdash; OpenAI desteklidir</p>

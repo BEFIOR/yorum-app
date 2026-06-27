@@ -80,9 +80,10 @@ export default function RootLayout({
     <html
       lang="tr"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full bg-background antialiased`}
+      style={{ backgroundColor: "#0f2f3d" }}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col bg-background font-sans">
         <AppNavbar />
         {children}
       </body>

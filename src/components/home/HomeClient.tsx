@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import {
   ArrowRight,
   Bus,
@@ -80,9 +80,6 @@ const featureCards = [
   },
 ];
 
-const TRANSPARENT_POSTER =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-
 export default function HomeClient() {
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
@@ -91,8 +88,6 @@ export default function HomeClient() {
     damping: 20,
     mass: 0.2,
   });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : -80]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.45], [1, prefersReducedMotion ? 1 : 0.75]);
 
   return (
     <main className="min-h-screen bg-linear-to-b from-cyan-950/85 via-sky-950/75 to-slate-900 text-slate-100">
@@ -113,21 +108,17 @@ export default function HomeClient() {
         transition={prefersReducedMotion ? undefined : { duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <motion.section
-        style={{ y: heroY, opacity: heroOpacity }}
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+      <section
         className="relative z-10 h-screen w-full overflow-hidden"
       >
-          <div className="pointer-events-none fixed inset-0 z-0">
+          <div className="pointer-events-none fixed inset-0 z-0 bg-slate-900">
             <video
               className="h-full w-full object-cover"
               autoPlay
               muted
               loop
               playsInline
-              poster={TRANSPARENT_POSTER}
+              preload="auto"
             >
               <source src="/homepageyorum.mp4" type="video/mp4" />
             </video>
@@ -135,48 +126,28 @@ export default function HomeClient() {
           </div>
 
           <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col items-start px-4 pt-40 md:px-6 md:pt-44">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.08, duration: 0.45 }}
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-50"
-            >
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-50">
               <Sparkles className="h-4 w-4 text-cyan-200" />
               <span className="leading-tight">
                 <span className="block">Gercek yorumlarla</span>
                 <span className="block">hizli karar</span>
               </span>
-            </motion.div>
+            </div>
 
             <div className="mt-5 max-w-3xl">
-              <motion.h1
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.16, duration: 0.55 }}
-                className="text-balance text-4xl font-black tracking-tight text-white md:text-6xl"
-              >
+              <h1 className="text-balance text-4xl font-black tracking-tight text-white md:text-6xl">
                 Yorum kalabalığını ayıkla,
                 <span className="block bg-linear-to-r from-sky-200 via-cyan-100 to-white bg-clip-text text-transparent">
                   doğru seçimi netleştir.
                 </span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.24, duration: 0.55 }}
-                className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg"
-              >
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg">
                 Otel, restoran, ucak ve otobus yorumlarini tek ekranda anlayip dakikalar
                 icinde karar ver. Sade, hizli ve gercek kullanici odakli.
-              </motion.p>
+              </p>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.34, duration: 0.5 }}
-              className="mt-10 flex flex-wrap items-center gap-3"
-            >
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <Link
                 href="/otel"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-sky-300 via-cyan-200 to-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:brightness-105"
@@ -191,9 +162,9 @@ export default function HomeClient() {
                 <CirclePlay className="h-4 w-4" />
                 Kategorileri gor
               </a>
-            </motion.div>
+            </div>
           </div>
-      </motion.section>
+      </section>
 
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6">
         <section id="kategoriler" className="mt-12">

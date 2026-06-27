@@ -15,12 +15,12 @@ export default function AppNavbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40">
       <div className="mx-auto max-w-6xl px-4 pt-4 md:px-6 md:pt-6">
-        <div className="relative overflow-hidden rounded-2xl border border-cyan-200/35 bg-cyan-100/12 backdrop-blur-2xl">
+        <div className="relative overflow-hidden rounded-2xl border border-cyan-200/35 bg-slate-900/75 backdrop-blur-md">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(125, 211, 252, 0.25) 0%, rgba(165, 243, 252, 0.14) 50%, rgba(255, 255, 255, 0.18) 100%)",
+                "linear-gradient(90deg, rgba(14, 116, 144, 0.35) 0%, rgba(21, 94, 117, 0.28) 50%, rgba(15, 47, 61, 0.4) 100%)",
             }}
           />
           <div className="relative flex flex-col gap-2 p-2 md:flex-row md:items-center md:justify-between">
