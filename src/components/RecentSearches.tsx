@@ -43,7 +43,7 @@ export default function RecentSearches({ onSelect, refreshTrigger, category }: R
 
   if (loading) {
     return (
-      <div className="mx-auto mt-8 w-full max-w-5xl rounded-2xl border border-white/20 bg-white/10 p-4 text-sm text-slate-200 backdrop-blur-xl">
+      <div className="mx-auto mt-8 w-full max-w-5xl rounded-2xl border border-cyan-200/25 bg-slate-900/50 p-4 text-sm text-slate-200 backdrop-blur-xl">
         Son aramalar getiriliyor...
       </div>
     );
@@ -51,7 +51,7 @@ export default function RecentSearches({ onSelect, refreshTrigger, category }: R
   if (searches.length === 0) return null;
 
   return (
-    <div className="mx-auto mt-8 w-full max-w-5xl rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-xl">
+    <div className="mx-auto mt-8 w-full max-w-5xl rounded-2xl border border-cyan-200/25 bg-slate-900/50 p-5 backdrop-blur-xl">
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-slate-300">
         Son Aramalar
       </h2>
@@ -60,7 +60,7 @@ export default function RecentSearches({ onSelect, refreshTrigger, category }: R
           <button
             key={search.id}
             onClick={() => onSelect(search)}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-300/40 hover:bg-sky-400/15"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-slate-700/60 bg-slate-800/80 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-400/40 hover:bg-slate-800"
           >
             <svg className="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

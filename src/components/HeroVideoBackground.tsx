@@ -36,7 +36,7 @@ export default function HeroVideoBackground({ src }: HeroVideoBackgroundProps) {
             <source src={src} type="video/mp4" />
           </video>
         </div>
-        <div className="absolute inset-0 bg-linear-to-b from-cyan-900/28 via-sky-900/18 to-slate-900/50" />
+        <div className="absolute inset-0 bg-linear-to-b from-slate-950/50 via-slate-900/50 to-slate-950/50" />
       </div>
     </>
   );

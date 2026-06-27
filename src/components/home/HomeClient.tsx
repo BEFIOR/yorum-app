@@ -23,7 +23,7 @@ const categories = [
     description: "Kalmak istediğiniz otelin yorumlarını analiz edin",
     href: "/otel",
     gradient: "from-blue-600/20 via-indigo-500/15 to-cyan-500/20",
-    iconClass: "text-blue-600",
+    iconClass: "text-sky-300",
     icon: <Hotel className="h-7 w-7" strokeWidth={1.9} />,
     metric: "12K+ yorum",
     examples: "Hilton, Rixos, Swissotel...",
@@ -34,7 +34,7 @@ const categories = [
     description: "Otobüs firması yorumlarını analiz edin",
     href: "/otobus",
     gradient: "from-emerald-600/20 via-teal-500/15 to-cyan-500/20",
-    iconClass: "text-emerald-600",
+    iconClass: "text-emerald-300",
     icon: <Bus className="h-7 w-7" strokeWidth={1.9} />,
     metric: "8K+ yorum",
     examples: "Metro, Pamukkale, Kamil Koç...",
@@ -45,7 +45,7 @@ const categories = [
     description: "Havayolu şirketi yorumlarını analiz edin",
     href: "/ucak",
     gradient: "from-sky-600/20 via-blue-500/15 to-indigo-500/20",
-    iconClass: "text-sky-600",
+    iconClass: "text-blue-300",
     icon: <Plane className="h-7 w-7" strokeWidth={1.9} />,
     metric: "10K+ yorum",
     examples: "THY, Pegasus, SunExpress...",
@@ -56,7 +56,7 @@ const categories = [
     description: "Restoran yorumlarını analiz edin",
     href: "/restoran",
     gradient: "from-orange-600/20 via-rose-500/15 to-red-500/20",
-    iconClass: "text-orange-600",
+    iconClass: "text-orange-300",
     icon: <UtensilsCrossed className="h-7 w-7" strokeWidth={1.9} />,
     metric: "15K+ yorum",
     examples: "Nusr-Et, Big Chefs, Gunaydin...",
@@ -91,7 +91,7 @@ export default function HomeClient() {
   });
 
   return (
-    <main className="min-h-screen bg-linear-to-b from-cyan-950/85 via-sky-950/75 to-slate-900 text-slate-100">
+    <main className="min-h-screen bg-linear-to-b from-slate-950/50 via-slate-900/50 to-slate-950/50 text-slate-100">
       <motion.div
         style={{ scaleX: progressWidth }}
         className="fixed inset-x-0 top-0 z-50 h-1 origin-left bg-linear-to-r from-sky-300 via-cyan-200 to-white"
@@ -111,8 +111,8 @@ export default function HomeClient() {
 
       <section className="relative z-10 w-full overflow-hidden md:h-screen">
           <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start px-4 pt-28 pb-6 md:h-full md:px-6 md:pt-44 md:pb-0">
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-50">
-              <Sparkles className="h-4 w-4 text-cyan-200" />
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-slate-950/50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-cyan-100">
+              <Sparkles className="h-4 w-4 text-cyan-300" />
               <span className="leading-tight">
                 <span className="block">Gercek yorumlarla</span>
                 <span className="block">hizli karar</span>
@@ -120,13 +120,13 @@ export default function HomeClient() {
             </div>
 
             <div className="mt-5 max-w-3xl">
-              <h1 className="text-balance text-4xl font-black tracking-tight text-white md:text-6xl">
+              <h1 className="text-balance text-4xl font-black tracking-tight text-slate-50 drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)] md:text-6xl">
                 Yorum kalabalığını ayıkla,
-                <span className="block bg-linear-to-r from-sky-200 via-cyan-100 to-white bg-clip-text text-transparent">
+                <span className="block bg-linear-to-r from-sky-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent drop-shadow-none">
                   doğru seçimi netleştir.
                 </span>
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg">
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] md:text-lg">
                 Otel, restoran, ucak ve otobus yorumlarini tek ekranda anlayip dakikalar
                 icinde karar ver. Sade, hizli ve gercek kullanici odakli.
               </p>
@@ -142,7 +142,7 @@ export default function HomeClient() {
               </Link>
               <a
                 href="#kategoriler"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/15"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-cyan-300/35 bg-slate-950/50 px-5 py-3 text-sm font-semibold text-cyan-50 transition hover:bg-slate-900/60"
               >
                 <CirclePlay className="h-4 w-4" />
                 Kategorileri gor
@@ -154,7 +154,7 @@ export default function HomeClient() {
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-2 md:px-6 md:pt-12">
         <section id="kategoriler" className="mt-2 md:mt-12">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-2xl font-bold md:text-3xl">Kategori sec ve devam et</h2>
+            <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">Kategori sec ve devam et</h2>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -171,20 +171,20 @@ export default function HomeClient() {
                   href={cat.href}
                   onMouseEnter={() => prefetchHeroMedia(cat.href)}
                   onFocus={() => prefetchHeroMedia(cat.href)}
-                  className="group block rounded-2xl border border-cyan-200/30 bg-cyan-100/8 p-5 backdrop-blur-xl transition hover:border-cyan-300/50"
+                  className="group block rounded-2xl border border-cyan-200/30 bg-slate-900/50 p-5 backdrop-blur-xl transition hover:border-cyan-300/50 hover:bg-slate-900/60"
                 >
                   <div className="mb-3 flex items-center justify-between">
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/25 bg-white/10">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-300/25 bg-slate-800/80">
                       <span className={cat.iconClass}>{cat.icon}</span>
                     </div>
-                    <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-slate-100">
+                    <span className="rounded-full border border-cyan-300/25 bg-slate-800/80 px-3 py-1 text-xs font-semibold text-cyan-100">
                       {cat.metric}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white">{cat.title}</h3>
+                  <h3 className="text-lg font-semibold text-slate-50">{cat.title}</h3>
                   <p className="mt-1 text-sm text-slate-300">{cat.description}</p>
                   <p className="mt-3 text-xs text-slate-400">{cat.examples}</p>
-                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200">
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300">
                     Incele
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
@@ -194,21 +194,21 @@ export default function HomeClient() {
           </div>
         </section>
 
-        <section className="mt-12 rounded-3xl border border-white/20 bg-white/6 p-6 backdrop-blur-xl md:p-8">
+        <section className="mt-12 rounded-3xl border border-cyan-200/25 bg-slate-900/50 p-6 backdrop-blur-xl md:p-8">
           <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-xl border border-white/20 bg-white/10 p-4">
+            <div className="rounded-xl border border-slate-700/60 bg-slate-800/80 p-4">
               <p className="text-xs uppercase tracking-wide text-slate-400">Adim 1</p>
-              <p className="mt-1 font-semibold text-white">Kategori sec</p>
+              <p className="mt-1 font-semibold text-slate-100">Kategori sec</p>
               <p className="mt-1 text-sm text-slate-300">Otel, restoran, ucak veya otobus.</p>
             </div>
-            <div className="rounded-xl border border-white/20 bg-white/10 p-4">
+            <div className="rounded-xl border border-slate-700/60 bg-slate-800/80 p-4">
               <p className="text-xs uppercase tracking-wide text-slate-400">Adim 2</p>
-              <p className="mt-1 font-semibold text-white">Isletme adini yaz</p>
+              <p className="mt-1 font-semibold text-slate-100">Isletme adini yaz</p>
               <p className="mt-1 text-sm text-slate-300">Ornek sorgularla tek tikta dene.</p>
             </div>
-            <div className="rounded-xl border border-white/20 bg-white/10 p-4">
+            <div className="rounded-xl border border-slate-700/60 bg-slate-800/80 p-4">
               <p className="text-xs uppercase tracking-wide text-slate-400">Adim 3</p>
-              <p className="mt-1 font-semibold text-white">Ozeti karsilastir</p>
+              <p className="mt-1 font-semibold text-slate-100">Ozeti karsilastir</p>
               <p className="mt-1 text-sm text-slate-300">Arti-eksi tablosu ile hizli karar ver.</p>
             </div>
           </div>
@@ -223,17 +223,17 @@ export default function HomeClient() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: 0.08 + index * 0.08, duration: 0.4 }}
               whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-              className="rounded-2xl border border-white/20 bg-white/6 p-4 backdrop-blur-xl"
+              className="rounded-2xl border border-cyan-200/25 bg-slate-900/50 p-4 backdrop-blur-xl"
             >
-              <div className="mb-3 inline-flex rounded-lg border border-cyan-200/30 bg-cyan-100/12 p-2 text-cyan-200">
+              <div className="mb-3 inline-flex rounded-lg border border-cyan-300/30 bg-slate-800/80 p-2 text-cyan-300">
                 {item.icon}
               </div>
-              <h2 className="font-semibold text-white">{item.title}</h2>
+              <h2 className="font-semibold text-slate-100">{item.title}</h2>
               <p className="mt-1 text-sm leading-relaxed text-slate-300">{item.description}</p>
             </motion.article>
           ))}
         </section>
-        <section className="mt-10 rounded-3xl border border-white/20 bg-white/6 p-7 backdrop-blur-xl md:p-10">
+        <section className="mt-10 rounded-3xl border border-cyan-200/25 bg-slate-900/50 p-7 backdrop-blur-xl md:p-10">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-slate-300">YorumArat - AI destekli yeni arayuz</p>
             <Link

@@ -66,7 +66,7 @@ export default function AppNavbar() {
 
       <header className="fixed inset-x-0 top-0 z-40">
         <div className="mx-auto max-w-6xl px-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:px-6 md:pt-6">
-          <div className="relative overflow-hidden rounded-2xl border border-cyan-200/35 bg-slate-900/75 backdrop-blur-md">
+          <div className="relative overflow-hidden rounded-2xl border border-cyan-200/35 bg-slate-950/92 backdrop-blur-md shadow-lg shadow-slate-950/40">
             <div
               className="pointer-events-none absolute inset-0"
               style={{
@@ -80,7 +80,7 @@ export default function AppNavbar() {
               <Link
                 href="/"
                 onFocus={() => prefetchHeroMedia("/")}
-                className="inline-flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-100/12 px-3 text-sm font-semibold text-slate-50 transition hover:bg-cyan-100/22"
+                className="inline-flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-cyan-200/40 bg-slate-800/80 px-3 text-sm font-semibold text-cyan-50 transition hover:bg-slate-800"
               >
                 <Image
                   src="/yorumarat.png"
@@ -97,7 +97,7 @@ export default function AppNavbar() {
                 aria-controls="mobile-nav-menu"
                 aria-label={menuOpen ? "Menuyu kapat" : "Menuyu ac"}
                 onClick={() => setMenuOpen((open) => !open)}
-                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-200/40 bg-cyan-100/12 text-slate-100 transition hover:bg-cyan-100/22"
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-200/40 bg-slate-800/80 text-cyan-50 transition hover:bg-slate-800"
               >
                 {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
@@ -127,13 +127,13 @@ export default function AppNavbar() {
                         onFocus={() => prefetchHeroMedia(item.href)}
                         className={`inline-flex min-h-11 items-center gap-3 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors ${
                           active
-                            ? "border-sky-200/60 bg-sky-400/15 text-white"
-                            : "border-cyan-200/35 bg-cyan-100/10 text-slate-100 hover:bg-cyan-100/18"
+                            ? "border-sky-400/50 bg-sky-950/80 text-sky-100"
+                            : "border-slate-700/80 bg-slate-800/90 text-slate-100 hover:bg-slate-800"
                         }`}
                       >
-                        <Icon className={`h-5 w-5 shrink-0 ${active ? "text-sky-200" : "text-cyan-200"}`} />
+                        <Icon className={`h-5 w-5 shrink-0 ${active ? "text-sky-300" : "text-cyan-300"}`} />
                         <span className="flex-1">{item.label}</span>
-                        <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+                        <ChevronRight className="h-4 w-4 shrink-0 text-slate-500" />
                       </Link>
                     );
                   })}
@@ -147,7 +147,7 @@ export default function AppNavbar() {
                 href="/"
                 onMouseEnter={() => prefetchHeroMedia("/")}
                 onFocus={() => prefetchHeroMedia("/")}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-100/12 px-4 text-sm font-semibold text-slate-50 transition hover:bg-cyan-100/22"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-cyan-200/40 bg-slate-800/80 px-4 text-sm font-semibold text-cyan-50 transition hover:bg-slate-800"
               >
                 <Image
                   src="/yorumarat.png"
@@ -171,11 +171,11 @@ export default function AppNavbar() {
                       onFocus={() => prefetchHeroMedia(item.href)}
                       className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-colors duration-200 ${
                         active
-                          ? "border-sky-200/60 bg-sky-400/15 text-white"
-                          : "border-cyan-200/35 bg-cyan-100/12 text-slate-100 hover:border-sky-100/80 hover:bg-cyan-100/18 hover:text-white"
+                          ? "border-sky-400/50 bg-sky-950/80 text-sky-100"
+                          : "border-slate-700/80 bg-slate-800/80 text-slate-100 hover:border-sky-400/40 hover:bg-slate-800 hover:text-sky-50"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 ${active ? "text-sky-200" : "text-cyan-200"}`} />
+                      <Icon className={`h-4 w-4 ${active ? "text-sky-300" : "text-cyan-300"}`} />
                       {item.label}
                     </Link>
                   );

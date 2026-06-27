@@ -66,7 +66,7 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
   );
 
   return (
-    <main className="min-h-screen bg-linear-to-b from-cyan-950/85 via-sky-950/75 to-slate-900 text-slate-100">
+    <main className="min-h-screen bg-linear-to-b from-slate-950/50 via-slate-900/50 to-slate-950/50 text-slate-100">
       <motion.div
         aria-hidden
         className="pointer-events-none fixed -left-24 top-32 h-64 w-64 rounded-full bg-cyan-400/18 blur-3xl"
@@ -80,17 +80,17 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
         transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <section className="relative z-10 h-screen w-full overflow-hidden">
+      <section className="relative z-10 w-full overflow-hidden md:h-screen">
         <div className="absolute -right-10 top-4 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl" />
         <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-cyan-300/18 blur-3xl" />
 
-        <div className="relative mx-auto flex h-full w-full max-w-6xl items-start px-4 pt-32 md:px-6 md:pt-36">
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start px-4 pt-28 pb-6 md:h-full md:px-6 md:pt-36 md:pb-0">
           <div className="w-full">
-            <div className="mb-6">
+            <div className="mb-5 md:mb-6">
               <motion.div whileHover={{ x: -4 }}>
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 rounded-xl border border-cyan-200/30 bg-cyan-100/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-cyan-100/18"
+                  className="inline-flex items-center gap-2 rounded-xl border border-cyan-200/40 bg-slate-900/50 px-4 py-2 text-sm font-medium text-cyan-50 transition hover:bg-slate-900/60"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   Ana sayfaya dön
@@ -98,16 +98,14 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
               </motion.div>
             </div>
 
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-100">
-                <Sparkles className="h-4 w-4 text-cyan-200" />
+            <div className="relative rounded-2xl border border-cyan-200/25 bg-slate-950/50 p-5 backdrop-blur-lg md:p-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-slate-900/50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-cyan-100">
+                <Sparkles className="h-4 w-4 text-cyan-300" />
                 {config.title} yorum analiz ekranı
               </div>
 
-              <h1 className="mt-4 text-balance text-3xl font-black tracking-tight text-white md:text-5xl">
-                <span className={`bg-linear-to-r ${config.gradient} bg-clip-text text-transparent`}>
-                  {config.title}
-                </span>{" "}
+              <h1 className="mt-4 text-balance text-3xl font-black tracking-tight text-slate-50 md:text-5xl">
+                <span className="text-sky-300">{config.title}</span>{" "}
                 için son 1 yıl yorum özeti
               </h1>
 
@@ -115,15 +113,17 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
                 {config.subtitle}. Marka ya da işletme adını yaz, yapay zeka güçlü ve zayıf
                 yönleri net şekilde çıkarsın.
               </p>
+            </div>
 
-              <div className="mt-4 grid gap-2 text-sm text-slate-200 md:grid-cols-3">
-                <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+            <div className="relative mt-4">
+              <div className="grid gap-2 text-sm text-slate-100 md:grid-cols-3">
+                <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
                   1) Isletme adini yaz
                 </p>
-                <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+                <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
                   2) Analiz et butonuna bas
                 </p>
-                <p className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+                <p className="rounded-xl border border-slate-700/50 bg-slate-900/50 px-3 py-2 backdrop-blur-sm">
                   3) Ozet sonucu karsilastir
                 </p>
               </div>
@@ -138,7 +138,7 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
               </div>
 
               {isAnalyzing && (
-                <div className="mt-5 rounded-2xl border border-cyan-200/30 bg-cyan-300/12 px-4 py-3 text-sm text-cyan-100">
+                <div className="mt-5 rounded-2xl border border-cyan-300/30 bg-slate-900/50 px-4 py-3 text-sm text-cyan-100 backdrop-blur-sm">
                   {config.loadingText}
                 </div>
               )}
@@ -146,7 +146,7 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
               {error && !isAnalyzing && (
                 <div
                   role="alert"
-                  className="mt-5 rounded-2xl border border-rose-300/40 bg-rose-500/15 px-4 py-3 text-sm text-rose-100"
+                  className="mt-5 rounded-2xl border border-rose-400/40 bg-slate-900/50 px-4 py-3 text-sm text-rose-200 backdrop-blur-sm"
                 >
                   {error}
                 </div>
@@ -156,8 +156,8 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6">
-        <section className="mt-8">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-2 md:px-6 md:pt-12">
+        <section className="mt-2 md:mt-8">
           {analysisResult && (
             <AnalysisCard
               hotelName={analysisResult.name}
@@ -175,7 +175,7 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
           )}
         </section>
 
-        <footer className="mt-12 border-t border-white/10 py-8 text-center">
+        <footer className="mt-12 border-t border-cyan-200/15 py-8 text-center">
           <p className="text-sm text-slate-400">YorumArat &mdash; OpenAI desteklidir</p>
         </footer>
       </div>
