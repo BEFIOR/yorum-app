@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CategoryPage from "@/components/CategoryPage";
+import HeroVideoBackground from "@/components/HeroVideoBackground";
 import { CATEGORY_CONFIGS } from "@/lib/prompts";
 import { buildCategoryMetadata, buildCategorySchemas } from "@/lib/seo";
 
 export const metadata: Metadata = buildCategoryMetadata("otel");
 const schemas = buildCategorySchemas("otel");
+const config = CATEGORY_CONFIGS.otel;
 
 export default function OtelPage() {
   return (
@@ -16,7 +18,8 @@ export default function OtelPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <CategoryPage config={CATEGORY_CONFIGS.otel} />
+      <HeroVideoBackground src={config.backgroundVideo} />
+      <CategoryPage config={config} />
     </>
   );
 }

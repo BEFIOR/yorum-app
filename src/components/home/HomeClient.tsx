@@ -108,23 +108,7 @@ export default function HomeClient() {
         transition={prefersReducedMotion ? undefined : { duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <section
-        className="relative z-10 h-screen w-full overflow-hidden"
-      >
-          <div className="pointer-events-none fixed inset-0 z-0 bg-slate-900">
-            <video
-              className="h-full w-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            >
-              <source src="/homepageyorum.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-linear-to-b from-cyan-900/28 via-sky-900/18 to-slate-900/45" />
-          </div>
-
+      <section className="relative z-10 h-screen w-full overflow-hidden">
           <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col items-start px-4 pt-40 md:px-6 md:pt-44">
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-50">
               <Sparkles className="h-4 w-4 text-cyan-200" />

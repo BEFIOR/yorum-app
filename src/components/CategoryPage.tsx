@@ -22,17 +22,6 @@ const SAMPLE_QUERIES: Record<CategoryConfig["slug"], string[]> = {
 };
 
 export default function CategoryPage({ config }: { config: CategoryConfig }) {
-  const isHotelCategory = config.slug === "otel";
-  const isFlightCategory = config.slug === "ucak";
-  const backgroundVideo = isHotelCategory
-    ? "/otelyorum.mp4"
-    : isFlightCategory
-      ? "/ucakyorum.mp4"
-      : config.slug === "restoran"
-        ? "/restoranyorum.mp4"
-        : config.slug === "otobus"
-          ? "/otobusyorum.mp4"
-      : null;
   const prefersReducedMotion = useReducedMotion();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
@@ -92,21 +81,6 @@ export default function CategoryPage({ config }: { config: CategoryConfig }) {
       />
 
       <section className="relative z-10 h-screen w-full overflow-hidden">
-        {backgroundVideo && (
-          <div className="pointer-events-none fixed inset-0 z-0 bg-slate-900">
-            <video
-              className="h-full w-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            >
-              <source src={backgroundVideo} type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-linear-to-b from-cyan-900/28 via-sky-900/18 to-slate-900/50" />
-          </div>
-        )}
         <div className="absolute -right-10 top-4 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl" />
         <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-cyan-300/18 blur-3xl" />
 

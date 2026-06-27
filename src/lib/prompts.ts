@@ -15,6 +15,7 @@ export interface CategoryConfig {
   pageGradientSize: string;
   pageGradientPosition: string;
   pageGradientStop: string;
+  backgroundVideo: string;
 }
 
 export const CATEGORY_CONFIGS: Record<Category, CategoryConfig> = {
@@ -33,6 +34,7 @@ export const CATEGORY_CONFIGS: Record<Category, CategoryConfig> = {
     pageGradientSize: "150% 145%",
     pageGradientPosition: "50% 0%",
     pageGradientStop: "10%",
+    backgroundVideo: "/otelyorum.mp4",
   },
   otobus: {
     slug: "otobus",
@@ -49,6 +51,7 @@ export const CATEGORY_CONFIGS: Record<Category, CategoryConfig> = {
     pageGradientSize: "145% 140%",
     pageGradientPosition: "50% 2%",
     pageGradientStop: "12%",
+    backgroundVideo: "/otobusyorum.mp4",
   },
   ucak: {
     slug: "ucak",
@@ -65,6 +68,7 @@ export const CATEGORY_CONFIGS: Record<Category, CategoryConfig> = {
     pageGradientSize: "145% 140%",
     pageGradientPosition: "50% 2%",
     pageGradientStop: "12%",
+    backgroundVideo: "/ucakyorum.mp4",
   },
   restoran: {
     slug: "restoran",
@@ -81,6 +85,7 @@ export const CATEGORY_CONFIGS: Record<Category, CategoryConfig> = {
     pageGradientSize: "145% 140%",
     pageGradientPosition: "50% 2%",
     pageGradientStop: "12%",
+    backgroundVideo: "/restoranyorum.mp4",
   },
 };
 

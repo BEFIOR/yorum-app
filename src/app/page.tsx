@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomeClient from "@/components/home/HomeClient";
+import HeroVideoBackground from "@/components/HeroVideoBackground";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -96,6 +97,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+      <HeroVideoBackground src="/homepageyorum.mp4" />
       <HomeClient />
     </>
   );
